@@ -1,0 +1,15 @@
+#controlboard {
+    width: 400px;
+    height: 220px;
+    background-color: yellow;
+}
+
+#colormap {
+    width: 400px;
+    height: 400px;
+    background-color: green;
+}
+
+.floatleft input {
+    /* float: left; */
+}
