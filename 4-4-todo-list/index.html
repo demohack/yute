@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>4.3 dom color map</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="4-4-todo-list.js"></script>
+</head>
+
+<body>
+    <div id="controlboard">
+        <form id="controlform">
+            <label for="newtask">task </label>
+            <input type="text" name="newtask" id="newtask" value="">
+            <br>
+            <label for="duedate">due date </label>
+            <input type="date" name="duedate" id="duedate" value="">
+            <br>
+            <label for="urgency">urgency </label>
+            <input type="text" name="urgency" id="urgency" value="" list="urgencyList">
+            <datalist id="urgencyList">
+                <option value="low"></option>
+                <option value="medium"></option>
+                <option value="high"></option>
+            </datalist>
+            <br>
+            <input type="submit" id="submitTask" value="Submit">
+        </form>
+    </div>
+    <div id="todoContent">
+        <ul id="todolist">
+            <li id="modelItem"><input type="submit" value="+"><input type="submit" value="-"><input type="submit" value="x">
+                <a class="task"></a> <a class="date"></a></li>
+
+            <li id=""><input type="submit" value="+"><input type="submit" value="-"><input type="submit" value="x">
+                <a class="task">take out the garbage</a> <a class="date">4/3/2020</a></li>
+
+            <li id=""><input type="submit" value="+"><input type="submit" value="-"><input type="submit" value="x">
+                <a class="task">go grocery shopping</a> <a class="date">4/3/2020</a></li>
+        </ul>
+    </div>
+</body>
+
+</html>
