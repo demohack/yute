@@ -57,7 +57,7 @@ class CardList {
         this.nextItemID = localStorage.getItem('nextItemID');
 
         this.lastSelectedItemID = localStorage.getItem('lastSelectedItemID');
-        this.lastSelectedItem = (tmpitem == "null" ? null : tmpitem);
+        this.lastSelectedItem = (this.lastSelectedItemID == null ? null : this.loadCardItem(this.lastSelectedItemID));
 
         if (this.lastVisitedDate == null) {
             this.resetCardList();
