@@ -48,8 +48,8 @@ console.log(`${evt}: ${new Date}`);
 // Further Study
 // x Add a button that when clicked will start the game
 // x Add a button that when clicked will restart the game once it has ended
-// For every guess made, increment a score variable and display the score while the game is played
-// Store the lowest-scoring game in local storage, so that players can see a record of the best game played.
+// x For every guess made, increment a score variable and display the score while the game is played
+// x Store the lowest-scoring game in local storage, so that players can see a record of the best game played.
 // x Allow for any number of cards to appear
 // Instead of hard-coding colors, try something different like random colors or even images!
 
@@ -138,7 +138,7 @@ function controlBoard_onDeal(target) {
 
     cardUI.startTime = new Date();
     cardUI.timerVar = setInterval(function () {
-        let currentDate   = new Date();
+        let currentDate = new Date();
         let seconds = Math.round((currentDate.getTime() - cardUI.startTime.getTime()) / 1000);
         if (cardUI.timePlayed.value != seconds) {
             cardUI.timePlayed.value = seconds;
@@ -246,6 +246,18 @@ function cardItem_onClick(target) {
                 // player finished game
                 // stop the timer, and record the score
                 clearInterval(cardUI.timerVar);
+
+                let bestTimePlayed = (localStorage.getItem('bestTimePlayed') == null ? 99999 : localStorage.getItem('bestTimePlayed'));
+                let bestClicksPlayed = (localStorage.getItem('bestClicksPlayed') == null ? 99999 : localStorage.getItem('bestClicksPlayed'));
+                let timePlayed = cardUI.timePlayed.value;
+                let clicksPlayed = cardUI.clicksPlayed.value;
+
+                if ((timePlayed + clicksPlayed) < (bestTimePlayed + bestClicksPlayed)) {
+                    localStorage.setItem('bestTimePlayed', timePlayed);
+                    localStorage.setItem('bestClicksPlayed', clicksPlayed);
+                    cardUI.bestTimePlayed.value = timePlayed;
+                    cardUI.bestClicksPlayed.value = clicksPlayed;
+                }
             }
         } else {
             // if its not the same color, then we keep it open for a second

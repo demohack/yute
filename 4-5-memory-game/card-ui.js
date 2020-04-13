@@ -17,6 +17,9 @@ class CardUI {
         this.timePlayed = null;
         this.clicksPlayed = null;
 
+        this.bestTimePlayed = null;
+        this.bestClicksPlayed = null;
+
         this.canClick = true;
 
         this.timerVar = null;
@@ -26,8 +29,15 @@ class CardUI {
     init() {
         this.controlBoard = document.querySelector("#controlboard");
         this.colorsToDeal = document.querySelector("#colorsToDeal");
+
         this.timePlayed = document.querySelector("#timePlayed");
         this.clicksPlayed = document.querySelector("#clicksPlayed");
+
+        this.bestTimePlayed = document.querySelector("#bestTimePlayed");
+        this.bestClicksPlayed = document.querySelector("#bestClicksPlayed");
+
+        this.bestTimePlayed.value = localStorage.getItem('bestTimePlayed');
+        this.bestClicksPlayed.value = localStorage.getItem('bestClicksPlayed');
     }
 }
 
