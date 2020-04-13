@@ -5,6 +5,9 @@
     <title>4.4 todo list</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="todo-card.js"></script>
+    <script type="text/javascript" src="todo-list.js"></script>
+    <script type="text/javascript" src="todo-ui.js"></script>
     <script type="text/javascript" src="4-4-todo-list.js"></script>
 </head>
 
@@ -14,7 +17,7 @@
             <label for="newtask">task </label>
             <input type="text" name="newtask" id="newtask" value="">
             <br>
-            <label for="duedate">due date </label>
+            <!-- <label for="duedate">due date </label>
             <input type="date" name="duedate" id="duedate" value="">
             <br>
             <label for="urgency">urgency </label>
@@ -24,20 +27,16 @@
                 <option value="medium"></option>
                 <option value="high"></option>
             </datalist>
-            <br>
-            <input type="submit" id="submitTask" value="Submit">
+            <br> -->
+            <input type="submit" id="addTask" value="Add Task">
+            <input type="submit" id="saveList" value="Save List">
+            <input type="submit" id="resetList" value="Reset List">
         </form>
     </div>
     <div id="todoContent">
-        <ul id="todolist">
+        <ul id="todoList">
             <li id="modelItem"><input type="submit" value="+"><input type="submit" value="-"><input type="submit" value="x">
-                <a class="task"></a> <a class="date"></a></li>
-
-            <li id=""><input type="submit" value="+"><input type="submit" value="-"><input type="submit" value="x">
-                <a class="task">take out the garbage</a> <a class="date">4/3/2020</a></li>
-
-            <li id=""><input type="submit" value="+"><input type="submit" value="-"><input type="submit" value="x">
-                <a class="task">go grocery shopping</a> <a class="date">4/3/2020</a></li>
+                <a class="task"></a> <a class="dueDate"></a></li>
         </ul>
     </div>
 </body>
