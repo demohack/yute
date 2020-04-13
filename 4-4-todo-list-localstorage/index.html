@@ -4,8 +4,10 @@
 <head>
     <title>4.4 todo list</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script type="text/javascript" src="script.js"></script>
-    <script type="text/javascript" src="4-4-todo-list.js"></script>
+    <script type="text/javascript" src="todo-item.js"></script>
+    <script type="text/javascript" src="todo-list.js"></script>
+    <script type="text/javascript" src="todo-ui.js"></script>
+    <script type="text/javascript" src="app.js"></script>
 </head>
 
 <body>
@@ -14,17 +16,6 @@
             <label for="newtask">task </label>
             <input type="text" name="newtask" id="newtask" value="">
             <br>
-            <!-- <label for="duedate">due date </label>
-            <input type="date" name="duedate" id="duedate" value="">
-            <br>
-            <label for="urgency">urgency </label>
-            <input type="text" name="urgency" id="urgency" value="" list="urgencyList">
-            <datalist id="urgencyList">
-                <option value="low"></option>
-                <option value="medium"></option>
-                <option value="high"></option>
-            </datalist>
-            <br> -->
             <input type="submit" id="addTask" value="Add Task">
             <input type="submit" id="saveList" value="Save List">
             <input type="submit" id="resetList" value="Reset List">
