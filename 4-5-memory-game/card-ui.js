@@ -13,11 +13,21 @@ class CardUI {
         // for new tasks
         //
         this.colorsToDeal = null;
+
+        this.timePlayed = null;
+        this.clicksPlayed = null;
+
+        this.canClick = true;
+
+        this.timerVar = null;
+        this.startTime = null;
     }
 
     init() {
         this.controlBoard = document.querySelector("#controlboard");
         this.colorsToDeal = document.querySelector("#colorsToDeal");
+        this.timePlayed = document.querySelector("#timePlayed");
+        this.clicksPlayed = document.querySelector("#clicksPlayed");
     }
 }
 
@@ -37,8 +47,8 @@ function createElement(cardItem) {
     cardDiv.dataset.color = cardItem.color;
     cardDiv.dataset.face = cardItem.face;
 
-    if (cardItem.dealt) {
-        cardElement.classList.add("dealt");
+    if (cardItem.matched) {
+        cardElement.classList.add("matched");
     }
 
     if (cardItem.selected) {

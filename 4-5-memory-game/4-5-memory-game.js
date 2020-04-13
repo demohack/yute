@@ -43,11 +43,11 @@ console.log(`${evt}: ${new Date}`);
 // x Make sure this works only if you click on two different cards
 // x — clicking the same card twice shouldn’t count as a match!)
 //
-// Make sure that you can not click too quickly and guess more than two cards at a time.
+// x Make sure that you can not click too quickly and guess more than two cards at a time.
 //
 // Further Study
 // x Add a button that when clicked will start the game
-// Add a button that when clicked will restart the game once it has ended
+// x Add a button that when clicked will restart the game once it has ended
 // For every guess made, increment a score variable and display the score while the game is played
 // Store the lowest-scoring game in local storage, so that players can see a record of the best game played.
 // x Allow for any number of cards to appear
@@ -134,6 +134,18 @@ function controlBoard_onDeal(target) {
 
     let cardItem = null;
 
+    cardUI.clicksPlayed.value = 0;
+
+    cardUI.startTime = new Date();
+    cardUI.timerVar = setInterval(function () {
+        let currentDate   = new Date();
+        let seconds = Math.round((currentDate.getTime() - cardUI.startTime.getTime()) / 1000);
+        if (cardUI.timePlayed.value != seconds) {
+            cardUI.timePlayed.value = seconds;
+        }
+        console.log("timer - controlBoard_onDeal() ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    }, 1000);
+
     let x = 0;
     console.log("controlBoard_onDeal()-----------------------------------------------------------------------------")
     deckOfCards.forEach(e => {
@@ -196,6 +208,9 @@ function cardItem_onClick(target) {
     const evt = "cardItem_onClick";
     console.log(`${evt}: ${new Date}`);
 
+    if (!cardUI.canClick || target.classList.contains("matched"))
+        return;
+
     let cardItem = cardList.findItemByKey(target.id);
     let lastSelectedItem = cardList.lastSelectedItem;
 
@@ -207,9 +222,13 @@ function cardItem_onClick(target) {
         target.style.backgroundColor = cardItem.color;
         cardItem.selected = true;
 
+        cardUI.clicksPlayed.value++;
+
         cardList.lastSelectedItem = cardItem;
     } else {
         // a different card was clicked
+
+        cardUI.clicksPlayed.value++;
 
         // open it up
         target.classList.add("selected");
@@ -219,8 +238,19 @@ function cardItem_onClick(target) {
         // if its the same color, then we have a match
         if (cardItem.color == lastSelectedItem.color) {
             // and we keep it open
+            cardItem.element.classList.add("matched");
+            lastSelectedItem.element.classList.add("matched");
+            cardList.selectedItems += 2;
+
+            if (cardList.selectedItems == cardList.countOfItems) {
+                // player finished game
+                // stop the timer, and record the score
+                clearInterval(cardUI.timerVar);
+            }
         } else {
             // if its not the same color, then we keep it open for a second
+
+            cardUI.canClick = false;
 
             setTimeout(function () {
                 // after one second, we turn over both cards
@@ -228,10 +258,14 @@ function cardItem_onClick(target) {
                 cardItem.element.classList.remove("selected");
                 cardItem.element.style.backgroundColor = null;
                 cardItem.selected = false;
+                cardItem.matched = true;
 
                 lastSelectedItem.element.classList.remove("selected");
                 lastSelectedItem.element.style.backgroundColor = null;
                 lastSelectedItem.selected = false;
+                lastSelectedItem.matched = true;
+
+                cardUI.canClick = true;
             }, 1000);
         }
 

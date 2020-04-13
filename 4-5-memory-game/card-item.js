@@ -14,7 +14,7 @@ class CardItem {
         this.color = null; // string color of card
         this.face = null; // string face value of card, {Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King, Joker}
 
-        this.dealt = null; // boolean has card been dealt?
+        this.matched = null; // boolean has card been matched?
         this.selected = null; // boolean has card been selected?
 
         // iterator protocol requirement
@@ -73,7 +73,7 @@ class CardItem {
         this.nextItemID = temp.nextItemID;
         this.face = temp.face;
         this.color = temp.color;
-        this.dealt = temp.dealt;
+        this.matched = temp.matched;
         this.selected = temp.selected;
 
         return this;

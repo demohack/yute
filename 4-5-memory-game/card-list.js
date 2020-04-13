@@ -13,6 +13,8 @@ class CardList {
 
         this.firstItem = null; // pointer to the first card item in linked list
         this.lastSelectedItem = null; // pointer to the last selected card
+        this.selectedItems = 0;
+        this.countOfItems = 0;
 
         // todo: iterator protocol
         this.cursor = null;
@@ -84,6 +86,8 @@ class CardList {
         this.nextItemID = 1;
         this.firstItem = null;
         this.lastSelectedItem = null;
+        this.selectedItems = 0;
+        this.countOfItems = 0;
 
         this.store();
     }
@@ -98,7 +102,7 @@ class CardList {
         let cardItem = this.loadCardItem(cardID);
         this.firstItem = cardItem;
 
-        let i = 0;
+        let i = 10000;  // safeguard against runaway loops
 
         while (cardItem != null) {
             // todo:
@@ -109,7 +113,8 @@ class CardList {
             cardID = cardItem.nextItemID;
             cardItem = this.loadCardItem(cardID);
             prevItem.nextItem = cardItem;
-
+            this.countOfItems++;
+    
             if (i++ > 20)
                 break;
         }
@@ -145,6 +150,8 @@ class CardList {
 
         cardItem.store();
         this.store();
+
+        this.countOfItems++;
 
         return cardItem;
     }
