@@ -102,7 +102,7 @@ class CardList {
         let cardItem = this.loadCardItem(cardID);
         this.firstItem = cardItem;
 
-        let i = 10000;  // safeguard against runaway loops
+        let i = 10000; // safeguard against runaway loops
 
         while (cardItem != null) {
             // todo:
@@ -114,7 +114,7 @@ class CardList {
             cardItem = this.loadCardItem(cardID);
             prevItem.nextItem = cardItem;
             this.countOfItems++;
-    
+
             if (i++ > 20)
                 break;
         }

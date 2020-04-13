@@ -54,6 +54,8 @@ function createElement(cardItem) {
     cardDiv.id = cardItem.getKey();
 
     cardDiv.classList.add("card");
+    cardDiv.classList.add("w3-cell");
+
     cardDiv.dataset.color = cardItem.color;
     cardDiv.dataset.face = cardItem.face;
 
