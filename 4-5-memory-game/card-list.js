@@ -12,7 +12,10 @@ class CardList {
         this.nextItemID = null;
 
         this.firstItem = null; // pointer to the first card item in linked list
+
+        this.lastSelectedItemID = null; // pointer to the last selected card
         this.lastSelectedItem = null; // pointer to the last selected card
+
         this.selectedItems = 0;
         this.countOfItems = 0;
 
@@ -45,7 +48,7 @@ class CardList {
         localStorage.setItem('lastVisitedDate', this.lastVisitedDate);
         localStorage.setItem('firstItemID', this.firstItemID);
         localStorage.setItem('nextItemID', this.nextItemID);
-        localStorage.setItem('lastSelectedItem', this.lastSelectedItem);
+        localStorage.setItem('lastSelectedItemID', this.lastSelectedItemID);
     }
 
     restore() {
@@ -53,7 +56,7 @@ class CardList {
         this.firstItemID = localStorage.getItem('firstItemID');
         this.nextItemID = localStorage.getItem('nextItemID');
 
-        let tmpitem = localStorage.getItem('lastSelectedItem');
+        this.lastSelectedItemID = localStorage.getItem('lastSelectedItemID');
         this.lastSelectedItem = (tmpitem == "null" ? null : tmpitem);
 
         if (this.lastVisitedDate == null) {
@@ -68,11 +71,18 @@ class CardList {
     findItemByKey(key) {
         let item = this.firstItem;
 
+        let loopCount = 0; // safeguard against runaway loops in circular linked lists
+        let loopMax = 1000;
+
         while (item != null) {
             if (item.getKey() == key) {
                 return item;
             }
+
             item = item.nextItem;
+
+            if (loopCount++ > loopMax)
+                break;
         }
 
         return item;
@@ -85,6 +95,7 @@ class CardList {
         this.firstItemID = null;
         this.nextItemID = 1;
         this.firstItem = null;
+        this.lastSelectedItemID = null;
         this.lastSelectedItem = null;
         this.selectedItems = 0;
         this.countOfItems = 0;
@@ -102,20 +113,17 @@ class CardList {
         let cardItem = this.loadCardItem(cardID);
         this.firstItem = cardItem;
 
-        let i = 10000; // safeguard against runaway loops
+        let loopCount = 0; // safeguard against runaway loops in circular linked lists
+        let loopMax = 1000;
 
         while (cardItem != null) {
-            // todo:
-            // cardItem.element = createElement(cardItem);
-            // cardList.element.appendChild(cardItem.element);
-
             prevItem = cardItem;
             cardID = cardItem.nextItemID;
             cardItem = this.loadCardItem(cardID);
             prevItem.nextItem = cardItem;
             this.countOfItems++;
 
-            if (i++ > 20)
+            if (loopCount++ > loopMax)
                 break;
         }
     }
@@ -128,9 +136,15 @@ class CardList {
     saveToLocalStorage() {
         let cardItem = this.firstItem;
 
+        let loopCount = 0; // safeguard against runaway loops in circular linked lists
+        let loopMax = 1000;
+
         while (cardItem != null) {
             cardItem.store();
             cardItem = cardItem.nextItem;
+
+            if (loopCount++ > loopMax)
+                break;
         }
 
         cardList.store();
