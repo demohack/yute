@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Meme Maker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="w3schools-mobile.css">
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <h1>Memory Game!</h1>
+    <div id="controlboard">
+        <div id="previewDIV">
+            <img id="previewIMG" src="">
+            <p id="previewTXT1">
+
+            </p>
+            <p id="previewTXT2">
+
+            </p>
+        </div>
+            <form id="controlform">
+            <label for="imageURL">image URL: </label>
+            <input type="text" name="imageURL" id="imageURL" value=""><br>
+            <label for="text1">text1: </label>
+            <input type="text" name="text1" id="text1" value=""><br>
+            <label for="text2">text2: </label>
+            <input type="text" name="text2" id="text2" value=""><br>
+            <input type="submit" id="submitMeme" value="Submit Meme">
+        </form>
+    </div>
+    <div id="game">
+    </div>
+    <script src="app-ui.js"></script>
+    <script src="app.js"></script>
+    <script src="data-item.js"></script>
+    <script src="data-list.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+#game div {
+  border: 1px solid black;
+  width: 15%;
+  height: 200px;
+  margin: 10px;
+  display: inline-block;
+}
+
+.card {
+    background-color: black;
+}
+
+.selected {
+    background-color: black;
+    border-color:grey;
+}
