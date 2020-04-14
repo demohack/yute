@@ -56,9 +56,6 @@ class CardList {
         this.firstItemID = localStorage.getItem('firstItemID');
         this.nextItemID = localStorage.getItem('nextItemID');
 
-        this.lastSelectedItemID = localStorage.getItem('lastSelectedItemID');
-        this.lastSelectedItem = (this.lastSelectedItemID == null ? null : this.loadCardItem(this.lastSelectedItemID));
-
         if (this.lastVisitedDate == null) {
             this.resetCardList();
         } else {
@@ -113,15 +110,23 @@ class CardList {
         let cardItem = this.loadCardItem(cardID);
         this.firstItem = cardItem;
 
+        this.lastSelectedItemID = localStorage.getItem('lastSelectedItemID');
+
         let loopCount = 0; // safeguard against runaway loops in circular linked lists
         let loopMax = 1000;
 
         while (cardItem != null) {
+            cardItem.element = createElement(cardItem);
+            this.element.appendChild(cardItem.element);
+
             prevItem = cardItem;
             cardID = cardItem.nextItemID;
             cardItem = this.loadCardItem(cardID);
             prevItem.nextItem = cardItem;
             this.countOfItems++;
+
+            if (this.lastSelectedItemID == cardID)
+                this.lastSelectedItem = cardItem;
 
             if (loopCount++ > loopMax)
                 break;

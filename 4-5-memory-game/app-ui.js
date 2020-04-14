@@ -2,7 +2,7 @@
 let evt = "card-ui.js:begin";
 console.log(`${evt}: ${new Date}`);
 
-class CardUI {
+class AppUI {
     constructor() {
         //
         // UI global variables
@@ -41,7 +41,7 @@ class CardUI {
     }
 }
 
-let cardUI = new CardUI();
+let appUI = new AppUI();
 
 // todo: iterator protocol
 function insertElement(child) {
@@ -60,11 +60,12 @@ function createElement(cardItem) {
     cardDiv.dataset.face = cardItem.face;
 
     if (cardItem.matched) {
-        cardElement.classList.add("matched");
+        cardDiv.classList.add("matched");
     }
 
     if (cardItem.selected) {
-        cardElement.classList.add("selected");
+        cardDiv.style.backgroundColor = cardItem.color;
+        cardDiv.classList.add("selected");
     }
 
     return cardDiv;

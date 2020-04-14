@@ -68,7 +68,7 @@ window.addEventListener("load", function (e) {
     const evt = "window.load";
     console.log(`${evt}: ${new Date} start h: ${document.body.clientHeight} w: ${document.body.clientWidth}`);
 
-    cardUI.init();
+    appUI.init();
     cardList.init();
 });
 
@@ -128,20 +128,20 @@ function controlBoard_onDeal(target) {
 
     controlBoard_onReset();
 
-    let colorsToDeal = cardUI.colorsToDeal.value;
+    let colorsToDeal = appUI.colorsToDeal.value;
 
     deckOfCards = shuffle(createDeck(COLORS.slice(0, colorsToDeal), FACES.slice(0, 2)));
 
     let cardItem = null;
 
-    cardUI.clicksPlayed.value = 0;
+    appUI.clicksPlayed.value = 0;
 
-    cardUI.startTime = new Date();
-    cardUI.timerVar = setInterval(function () {
+    appUI.startTime = new Date();
+    appUI.timerVar = setInterval(function () {
         let currentDate = new Date();
-        let seconds = Math.round((currentDate.getTime() - cardUI.startTime.getTime()) / 1000);
-        if (cardUI.timePlayed.value != seconds) {
-            cardUI.timePlayed.value = seconds;
+        let seconds = Math.round((currentDate.getTime() - appUI.startTime.getTime()) / 1000);
+        if (appUI.timePlayed.value != seconds) {
+            appUI.timePlayed.value = seconds;
         }
         console.log("timer - controlBoard_onDeal() ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     }, 1000);
@@ -208,7 +208,7 @@ function cardItem_onClick(target) {
     const evt = "cardItem_onClick";
     console.log(`${evt}: ${new Date}`);
 
-    if (!cardUI.canClick || target.classList.contains("matched"))
+    if (!appUI.canClick || target.classList.contains("matched"))
         return;
 
     let cardItem = cardList.findItemByKey(target.id);
@@ -221,19 +221,21 @@ function cardItem_onClick(target) {
         target.classList.add("selected");
         target.style.backgroundColor = cardItem.color;
         cardItem.selected = true;
+        cardItem.store();
 
-        cardUI.clicksPlayed.value++;
+        appUI.clicksPlayed.value++;
 
         cardList.lastSelectedItem = cardItem;
     } else {
         // a different card was clicked
 
-        cardUI.clicksPlayed.value++;
+        appUI.clicksPlayed.value++;
 
         // open it up
         target.classList.add("selected");
         target.style.backgroundColor = cardItem.color;
         cardItem.selected = true;
+        cardItem.store();
 
         // if its the same color, then we have a match
         if (cardItem.color == lastSelectedItem.color) {
@@ -245,24 +247,24 @@ function cardItem_onClick(target) {
             if (cardList.selectedItems == cardList.countOfItems) {
                 // player finished game
                 // stop the timer, and record the score
-                clearInterval(cardUI.timerVar);
+                clearInterval(appUI.timerVar);
 
                 let bestTimePlayed = (localStorage.getItem('bestTimePlayed') == null ? 99999 : localStorage.getItem('bestTimePlayed'));
                 let bestClicksPlayed = (localStorage.getItem('bestClicksPlayed') == null ? 99999 : localStorage.getItem('bestClicksPlayed'));
-                let timePlayed = cardUI.timePlayed.value;
-                let clicksPlayed = cardUI.clicksPlayed.value;
+                let timePlayed = appUI.timePlayed.value;
+                let clicksPlayed = appUI.clicksPlayed.value;
 
                 if ((timePlayed + clicksPlayed) < (bestTimePlayed + bestClicksPlayed)) {
                     localStorage.setItem('bestTimePlayed', timePlayed);
                     localStorage.setItem('bestClicksPlayed', clicksPlayed);
-                    cardUI.bestTimePlayed.value = timePlayed;
-                    cardUI.bestClicksPlayed.value = clicksPlayed;
+                    appUI.bestTimePlayed.value = timePlayed;
+                    appUI.bestClicksPlayed.value = clicksPlayed;
                 }
             }
         } else {
             // if its not the same color, then we keep it open for a second
 
-            cardUI.canClick = false;
+            appUI.canClick = false;
 
             setTimeout(function () {
                 // after one second, we turn over both cards
@@ -277,7 +279,10 @@ function cardItem_onClick(target) {
                 lastSelectedItem.selected = false;
                 lastSelectedItem.matched = true;
 
-                cardUI.canClick = true;
+                cardItem.store();
+                lastSelectedItem.store();
+
+                appUI.canClick = true;
             }, 1000);
         }
 
