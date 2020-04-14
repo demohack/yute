@@ -83,6 +83,7 @@ class TodoList {
         while (todoItem != null) {
             todoItem.element = createElement(todoItem);
             todoList.element.appendChild(todoItem.element);
+            insertElement(todoItem.element);
 
             prevItem = todoItem;
             todoID = todoItem.nextItemID;
