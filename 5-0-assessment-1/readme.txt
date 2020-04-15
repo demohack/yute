@@ -1,5 +1,8 @@
+04/14  8:00 pm  start coding
+       8:30 pm  stop
+
 04/14  5:00 am  start coding
-       5:30 pm  implemented image and text, change events
+       5:30 am  implemented image and text, change events
 https://www.w3schools.com/howto/howto_js_draggable.asp
 https://javascript.info/mouse-drag-and-drop
 https://cloudinary.com/documentation/javascript_image_manipulation
@@ -8,9 +11,10 @@ https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial
 https://www.w3schools.com/graphics/svg_intro.asp
 https://www.google.com/search?sxsrf=ALeKk01me0Endr_36_kvtnFTfU-HoI-rtw%3A1586872024676&ei=2L6VXpvtKNr89AP085vgAw&q=javascript+embed+youtube+video&oq=javascript+embed+youtube+video&gs_lcp=CgZwc3ktYWIQAzIECCMQJzIGCAAQFhAeMgYIABAWEB4yBggAEBYQHjIFCAAQzQIyBQgAEM0CMgUIABDNAjIFCAAQzQI6BAgAEEdKCQgXEgUxMi02NUoICBgSBDEyLTdQzh1YyitgoS5oAXACeACAAWqIAaEDkgEDNC4xmAEAoAEBqgEHZ3dzLXdpeg&sclient=psy-ab&ved=0ahUKEwibudb6hujoAhVaPn0KHfT5BjwQ4dUDCAw&uact=5#kpvalbx=_376VXpD4IKX59APBhZrYDQ44
 https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_audio_autoplay
+       6:00 am  stop
 
 04/13  8:15 pm  start coding
-       9:49 pm  
+       9:49 pm  stop
 
 04/13  6:00 pm  came home from work and begin assessment
        6:49 pm  cleaned up code
@@ -23,7 +27,7 @@ https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_audio_autoplay
        4:58 am  finished modifying start files
        5:35 am  finished modifying earlier versions of custom AppUI, DataItem, DataList classes
        6:09 am  finished fixing bugs to memory game introduced earlier while tidying up code // remember: if it aint broken, don't fix it!
-       6:18 am  determined reason memory game doesn't restore is because 
+       6:18 am  determined reason memory game doesn't restore is because
 
 04/12 10:43 pm  emailed to start assessment
                 read requirements, watched video
