@@ -6,6 +6,8 @@ https://cloudinary.com/documentation/javascript_image_manipulation
 https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Drawing_graphics
 https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial
 https://www.w3schools.com/graphics/svg_intro.asp
+https://www.google.com/search?sxsrf=ALeKk01me0Endr_36_kvtnFTfU-HoI-rtw%3A1586872024676&ei=2L6VXpvtKNr89AP085vgAw&q=javascript+embed+youtube+video&oq=javascript+embed+youtube+video&gs_lcp=CgZwc3ktYWIQAzIECCMQJzIGCAAQFhAeMgYIABAWEB4yBggAEBYQHjIFCAAQzQIyBQgAEM0CMgUIABDNAjIFCAAQzQI6BAgAEEdKCQgXEgUxMi02NUoICBgSBDEyLTdQzh1YyitgoS5oAXACeACAAWqIAaEDkgEDNC4xmAEAoAEBqgEHZ3dzLXdpeg&sclient=psy-ab&ved=0ahUKEwibudb6hujoAhVaPn0KHfT5BjwQ4dUDCAw&uact=5#kpvalbx=_376VXpD4IKX59APBhZrYDQ44
+https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_audio_autoplay
 
 04/13  8:15 pm  start coding
        9:49 pm  

@@ -18,7 +18,7 @@ class AppUI {
         this.text1 = null;
         this.text2 = null;
 
-        this.previewDIV = null;
+        this.previewMEME = null;
         this.previewIMG = null;
         this.previewTXT1 = null;
         this.previewTXT2 = null;
@@ -35,6 +35,11 @@ class AppUI {
         this.previewIMG = document.querySelector("#previewIMG");
         this.previewTXT1 = document.querySelector("#previewTXT1");
         this.previewTXT2 = document.querySelector("#previewTXT2");
+
+        this.previewIMG.style.height = "400px";
+        this.previewIMG.style.width = "400px";
+        this.previewTXT1.style.top = "100px";
+        this.previewTXT1.style.left = "100px";
     }
 }
 

@@ -10,18 +10,9 @@
 </head>
 
 <body>
-    <h1>Memory Game!</h1>
+    <h1>Meme Template</h1>
     <div id="controlboard">
-        <div id="previewDIV">
-            <img id="previewIMG" src="">
-            <p id="previewTXT1">
-
-            </p>
-            <p id="previewTXT2">
-
-            </p>
-        </div>
-            <form id="controlform">
+        <form id="controlform">
             <label for="imageURL">image URL: </label>
             <input type="text" name="imageURL" id="imageURL" value=""><br>
             <label for="text1">text1: </label>
@@ -30,8 +21,17 @@
             <input type="text" name="text2" id="text2" value=""><br>
             <input type="submit" id="submitMeme" value="Submit Meme">
         </form>
+        <div id="previewDIV">
+            <img id="previewIMG" src="https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/08/30/14/sharpei.jpg">
+            <div id="previewTXT1">
+                Cute puppie...
+            </div>
+            <div id="previewTXT2">
+                Let's play!
+            </div>
+        </div>
     </div>
-    <div id="game">
+    <div id="memelist">
     </div>
     <script src="app-ui.js"></script>
     <script src="app.js"></script>

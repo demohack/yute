@@ -72,10 +72,12 @@ window.addEventListener("click", function (e) {
     e.preventDefault();
     let target = e.target;
 
-    if (target.matches(".card")) {
+    if (target.matches("#previewIMG")) {
         dataItem_onClick(target);
-    } else if (target.matches("#deal")) {
-        controlBoard_onDeal(target);
+    } else if (target.matches("#previewTXT1")) {
+        dataItem_onClick(target);
+    } else if (target.matches("#previewTXT2")) {
+        dataItem_onClick(target);
     }
 
 });
@@ -124,7 +126,7 @@ function imageURL_onChange(target) {
 }
 
 function text1_onChange(target) {
-    const evt = "imageURL_onChange";
+    const evt = "text1_onChange";
     console.log(`${evt}: ${new Date}`);
 
     appUI.previewTXT1.innerHTML = appUI.text1.value;
@@ -133,7 +135,7 @@ function text1_onChange(target) {
 }
 
 function text2_onChange(target) {
-    const evt = "imageURL_onChange";
+    const evt = "text2_onChange";
     console.log(`${evt}: ${new Date}`);
 
     appUI.previewTXT2.innerHTML = appUI.text2.value;
@@ -142,7 +144,7 @@ function text2_onChange(target) {
 }
 
 function dataItem_onClick(target) {
-    const evt = "cardItem_onClick";
+    const evt = "dataItem_onClick";
     console.log(`${evt}: ${new Date}`);
 
 
