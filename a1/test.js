@@ -14,14 +14,18 @@ function dragElement(el) {
     // http://jsfiddle.net/3jMQD/
     //
 
+    // this odd call to add event init() and then to remove it means the resizer div is only added once
+    // this code acts like a class constructor
     el.addEventListener('click', function init() {
         el.removeEventListener('click', init, false);
-        el.classList.add('resizable');
 
         var resizer = document.createElement('div');
-        resizer.className = 'resizer';
-        el.appendChild(resizer);
         resizer.addEventListener('mousedown', resizeInitOnMouseDown, false);
+
+        el.appendChild(resizer);
+
+        el.classList.add('resizable');
+        resizer.className = 'resizer';
     }, false);
 
     var startX = 0,
