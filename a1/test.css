@@ -1,15 +1,18 @@
-#resizeme {
+/*
+// resizable referenced from:
+// http://jsfiddle.net/3jMQD/
+*/
+
+.resizeme {
     background: lime;
-    height: 200px;
-    width: 300px;
 }
 
-p.resizable {
+.resizable {
     background: cyan;
     position: relative;
 }
 
-p .resizer {
+.resizer {
     width: 10px;
     height: 10px;
     background: blue;
@@ -19,11 +22,14 @@ p .resizer {
     cursor: se-resize;
 }
 
+/*
+// draggable referenced from:
+// https://www.w3schools.com/howto/howto_js_draggable.asp
+*/
 
 #mydiv {
     position: absolute;
     z-index: 9;
-    background-color: #f1f1f1;
     border: 1px solid #d3d3d3;
     text-align: center;
 }
@@ -35,6 +41,18 @@ p .resizer {
     background-color: #2196F3;
     color: #fff;
 }
+
+.mydivheader {
+    padding: 10px;
+    cursor: move;
+    z-index: 10;
+    background-color: #2196F3;
+    color: #fff;
+}
+
+/*
+// custom code
+*/
 
 #previewDIV {
     background-color: yellow;
@@ -60,8 +78,8 @@ p .resizer {
     top: 80px;
     right: 80px;
     width: 200px;
-    height: 100px;
-    border: 3px solid #73AD21;
+    /* height: 100px; */
+    /* border: 3px solid #73AD21; */
 }
 
 #previewTXT2 {
@@ -70,6 +88,6 @@ p .resizer {
     top: 160px;
     right: 160px;
     width: 200px;
-    height: 100px;
-    border: 3px solid #73AD21;
+    /* height: 100px;
+    border: 3px solid #73AD21; */
 }

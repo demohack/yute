@@ -1,9 +1,15 @@
+04/18  3:00 am  start
+       4:30 pm  stop
+
+04/17  9:22 pm  start
+      10:00 pm  stop
+
 04/17  5:34 pm  start coding - found some code to study for dragging divs, and resizing divs
        6:44 pm  stop / noncoding wins: setup office pc to sync with home mac, using github
        7:03 pm  setup ssh key for work pc and personal mac
        7:23 pm  troubleshoot git with ssh key
        7:31 pm  still can't get git to commit without asking for logging
-       
+
 http://jsfiddle.net/3jMQD/
 https://www.w3schools.com/howto/howto_js_draggable.asp
 
