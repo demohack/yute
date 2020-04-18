@@ -1,3 +1,41 @@
+#resizeme {
+    background: lime;
+    height: 200px;
+    width: 300px;
+}
+
+p.resizable {
+    background: cyan;
+    position: relative;
+}
+
+p .resizer {
+    width: 10px;
+    height: 10px;
+    background: blue;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    cursor: se-resize;
+}
+
+
+#mydiv {
+    position: absolute;
+    z-index: 9;
+    background-color: #f1f1f1;
+    border: 1px solid #d3d3d3;
+    text-align: center;
+}
+
+#mydivheader {
+    padding: 10px;
+    cursor: move;
+    z-index: 10;
+    background-color: #2196F3;
+    color: #fff;
+}
+
 #previewDIV {
     background-color: yellow;
     position: relative;
@@ -35,4 +73,3 @@
     height: 100px;
     border: 3px solid #73AD21;
 }
-

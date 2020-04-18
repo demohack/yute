@@ -1,3 +1,9 @@
+04/17  5:34 pm  start coding - found some code to study for dragging divs, and resizing divs
+
+http://jsfiddle.net/3jMQD/
+https://www.w3schools.com/howto/howto_js_draggable.asp
+
+
 04/16  5:30 am  start coding - created test.html, test.js, test.css to isolate and focus dragging and dropping functionality
        6:00 am  able to show the image and two text boxes within a div
        6:30 am  stop
