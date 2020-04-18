@@ -1,6 +1,9 @@
 04/18  3:00 am  start
        4:30 pm  stop
 
+04/18  3:00 am  start - was able to combine the two sample code for dragging and resizing, was able to figure out how to apply over multiple div elements, also added resizing of fonts
+       4:30 pm  stop
+
 04/17  9:22 pm  start
       10:00 pm  stop
 

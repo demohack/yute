@@ -1,3 +1,11 @@
+//
+// problems
+//
+// 1. dragging and resizing does not work under mobile touch,
+//    not sure if its due to touch events not firing the click events
+//    or due to fat fingers.
+//
+
 // Make the DIV element draggable:
 function dragElement(el) {
 
@@ -8,13 +16,12 @@ function dragElement(el) {
 
     el.addEventListener('click', function init() {
         el.removeEventListener('click', init, false);
-
-        el.className = el.className + ' resizable';
+        el.classList.add('resizable');
 
         var resizer = document.createElement('div');
         resizer.className = 'resizer';
         el.appendChild(resizer);
-        resizer.addEventListener('mousedown', initDrag, false);
+        resizer.addEventListener('mousedown', resizeInitOnMouseDown, false);
     }, false);
 
     var startX = 0,
@@ -22,26 +29,26 @@ function dragElement(el) {
         startWidth = 0,
         startHeight = 0;
 
-    function initDrag(e) {
+    function resizeInitOnMouseDown(e) {
         startX = e.clientX;
         startY = e.clientY;
 
         startWidth = parseInt(document.defaultView.getComputedStyle(el).width, 10);
         startHeight = parseInt(document.defaultView.getComputedStyle(el).height, 10);
 
-        document.documentElement.addEventListener('mousemove', doDrag, false);
-        document.documentElement.addEventListener('mouseup', stopDrag, false);
+        document.addEventListener('mousemove', resizeOnMouseMove, false);
+        document.addEventListener('mouseup', resizeStopOnMouseUp, false);
     }
 
-    function doDrag(e) {
+    function resizeOnMouseMove(e) {
         el.style.width = (startWidth + e.clientX - startX) + 'px';
         el.style.height = (startHeight + e.clientY - startY) + 'px';
-        el.style.fontSize = (startHeight + e.clientY - startY)-20 + 'px';   // addition
+        el.style.fontSize = (startHeight + e.clientY - startY) - 20 + 'px'; // addition
     }
 
-    function stopDrag(e) {
-        document.documentElement.removeEventListener('mousemove', doDrag, false);
-        document.documentElement.removeEventListener('mouseup', stopDrag, false);
+    function resizeStopOnMouseUp(e) {
+        document.removeEventListener('mousemove', resizeOnMouseMove, false);
+        document.removeEventListener('mouseup', resizeStopOnMouseUp, false);
     }
 
     //
@@ -49,51 +56,57 @@ function dragElement(el) {
     // https://www.w3schools.com/howto/howto_js_draggable.asp
     //
 
-    let d = document.querySelector(`#${el.id} ` + ".mydivheader");
-    if (d) {
+    let div = document.querySelector(`#${el.id} ` + ".mydivheader");
+
+    if (div) {
         // if present, the header is where you move the DIV from:
-        d.onmousedown = dragMouseDown;
+        div.addEventListener('mousedown', dragStartOnMouseDown, false);
     } else {
         // otherwise, move the DIV from anywhere inside the DIV:
-        el.onmousedown = dragMouseDown;
+        el.addEventListener('mousedown', dragStartOnMouseDown, false);
     }
 
-    var pos1 = 0,
-        pos2 = 0,
-        pos3 = 0,
-        pos4 = 0;
+    var offsetX = 0,
+        offsetY = 0,
+        startX = 0,
+        startY = 0;
 
-    function dragMouseDown(e) {
+    function dragStartOnMouseDown(e) {
         e = e || window.event;
         e.preventDefault();
+
         // get the mouse cursor position at startup:
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        document.onmouseup = closeDragElement;
+        startX = e.clientX;
+        startY = e.clientY;
+
         // call a function whenever the cursor moves:
-        document.onmousemove = elementDrag;
+        document.addEventListener('mousemove', dragOnMouseMove, false);
+
+        // terminate the event sequence
+        document.addEventListener('mouseup', dragStopOnMouseUp, false);
     }
 
-    function elementDrag(e) {
+    function dragOnMouseMove(e) {
         e = e || window.event;
         e.preventDefault();
+
         // calculate the new cursor position:
-        pos1 = pos3 - e.clientX;
-        pos2 = pos4 - e.clientY;
-        pos3 = e.clientX;
-        pos4 = e.clientY;
+        offsetX = startX - e.clientX;
+        offsetY = startY - e.clientY;
+        startX = e.clientX;
+        startY = e.clientY;
+
         // set the element's new position:
-        el.style.top = (el.offsetTop - pos2) + "px";
-        el.style.left = (el.offsetLeft - pos1) + "px";
+        el.style.left = (el.offsetLeft - offsetX) + "px";
+        el.style.top = (el.offsetTop - offsetY) + "px";
     }
 
-    function closeDragElement() {
+    function dragStopOnMouseUp() {
         // stop moving when mouse button is released:
-        document.onmouseup = null;
-        document.onmousemove = null;
+        document.removeEventListener('mousemove', dragOnMouseMove, false);
+        document.removeEventListener('mouseup', dragStopOnMouseUp, false);
     }
 }
 
 dragElement(document.querySelector("#previewTXT1"));
 dragElement(document.querySelector("#previewTXT2"));
-//dragElement(document.getElementById("mydiv"));
