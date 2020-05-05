@@ -1,3 +1,4 @@
+"use strict"
 //
 // problems
 //
@@ -7,7 +8,7 @@
 //
 
 // Make the DIV element draggable:
-function dragElement(el) {
+function initElement(el) {
 
     //
     // resizable referenced from:
@@ -112,5 +113,5 @@ function dragElement(el) {
     }
 }
 
-dragElement(document.querySelector("#previewTXT1"));
-dragElement(document.querySelector("#previewTXT2"));
+initElement(document.querySelector("#previewTXT1"));
+initElement(document.querySelector("#previewTXT2"));
