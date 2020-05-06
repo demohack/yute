@@ -1,20 +1,22 @@
 describe("Test: submitServerInfo", function () {
-  let allServersSaved = allServers;
+  let allServersSaved = deepCopyFunction(allServers);
   let serverNameInputSaved = serverNameInput.value;
   let serverTbodyinnerHTML = serverTbody.innerHTML;
+  let serverIdSaved = serverId;
 
   beforeEach(function () {
     // initialization logic
     allServers = {};
     serverNameInput.value = 'Alice';
     serverTbody.innerHTML = '';
+    serverId = 0;
   });
 
   it('should add a new server to allServers on submitServerInfo()', function () {
     submitServerInfo();
 
     expect(Object.keys(allServers).length).toEqual(1);
-    expect(allServers['server' + serverId].serverName).toEqual('Alice');
+    expect(allServers['server1'].serverName).toEqual('Alice');
   });
 
   afterEach(function () {
@@ -22,14 +24,15 @@ describe("Test: submitServerInfo", function () {
     serverNameInput.value = serverNameInputSaved;
     serverTbody.innerHTML = serverTbodyinnerHTML;
     allServers = allServersSaved;
+    serverId = serverIdSaved;
   });
 });
 
 
 describe("Test: updateServerTable", function () {
-  let allServersSaved = allServers;
+  let allServersSaved = deepCopyFunction(allServers);
   let serverTbodyinnerHTML = serverTbody.innerHTML;
-  let allPaymentsSaved = allPayments;
+  let allPaymentsSaved = deepCopyFunction(allPayments);
 
   beforeEach(function () {
     // initialization logic
