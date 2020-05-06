@@ -1,3 +1,5 @@
+"use strict"
+
 let billAmtInput = document.getElementById('billAmt');
 let tipAmtInput = document.getElementById('tipAmt');
 let paymentForm = document.getElementById('paymentForm');
@@ -21,7 +23,7 @@ function submitPaymentInfo(evt) {
 
     allPayments['payment' + paymentId] = curPayment;
 
-    appendPaymentTable(curPayment);
+    appendPaymentTable(curPayment, 'payment' + paymentId);
     updateServerTable();
     updateSummary();
 
@@ -48,16 +50,42 @@ function createCurPayment() {
 }
 
 // Create table row element and pass to appendTd with input value
-function appendPaymentTable(curPayment) {
+function appendPaymentTable(curPayment, key) {
   let newTr = document.createElement('tr');
-  newTr.id = 'payment' + paymentId;
+  newTr.id = key;
 
   appendTd(newTr, '$' + curPayment.billAmt);
   appendTd(newTr, '$' + curPayment.tipAmt);
   appendTd(newTr, curPayment.tipPercent + '%');
 
+  let btn = appendDeleteBtn(newTr);
+  btn.addEventListener("click", function (evt) {
+    removePayment(evt.target.parentElement.parentElement.id);
+  });
+
   paymentTbody.append(newTr);
 }
+
+
+// Create table row element and pass to appendTd function with input value
+function updatePaymentTable() {
+  paymentTbody.innerHTML = '';
+
+  for (let key in allPayments) {
+    let curPayment = allPayments[key];
+
+    appendPaymentTable(curPayment, key);
+  }
+}
+
+function removePayment(key) {
+  delete allPayments[key];
+  let el = paymentTbody.querySelector(`#${key}`);
+  el.parentNode.removeChild(el);
+  updateSummary();
+  updateServerTable();
+}
+
 
 // Create table row element and pass to appendTd with calculated sum of all payment
 function updateSummary() {

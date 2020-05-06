@@ -39,6 +39,18 @@ function updateServerTable() {
     appendTd(newTr, curServer.serverName);
     appendTd(newTr, '$' + tipAverage.toFixed(2));
 
+    let btn = appendDeleteBtn(newTr);
+    btn.addEventListener("click", function (evt) {
+      removeServer(evt.target.parentElement.parentElement.id);
+    });
+
     serverTbody.append(newTr);
   }
+}
+
+function removeServer(key) {
+  delete allServers[key];
+  // let el = serverTbody.querySelector(`#${key}`);
+  // el.parentNode.removeChild(el);
+  updateServerTable();
 }

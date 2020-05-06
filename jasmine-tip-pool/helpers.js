@@ -1,3 +1,4 @@
+"use strict"
 
 // accepts 'tipAmt', 'billAmt', 'tipPercent' and sums total from allPayments objects
 function sumPaymentTotal(type) {
@@ -20,9 +21,22 @@ function calculateTipPercent(billAmt, tipAmt) {
 // expects a table row element, appends a newly created td element from the value
 function appendTd(tr, value) {
   let newTd = document.createElement('td');
-  newTd.innerText = value;
+  newTd.innerHTML = value;    // changed from innerText, to be able to add html buttons
 
   tr.append(newTd);
+  return newTd;
+}
+
+// expects a table row element, appends a newly created td element from the value
+function appendDeleteBtn(tr) {
+  let newBtn = document.createElement('button');
+  newBtn.innerHTML = 'X';    // changed from innerText, to be able to add html buttons
+
+  let newTd = document.createElement('td');
+  newTd.append(newBtn);    // changed from innerText, to be able to add html buttons
+
+  tr.append(newTd);
+  return newTd;
 }
 
 // https://medium.com/javascript-in-plain-english/how-to-deep-copy-objects-and-arrays-in-javascript-7c911359b089
