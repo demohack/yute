@@ -7,9 +7,13 @@ Examples:
 
 */
 function doubleValues(arr) {
-    return arr.map(function (value, index, arr) {
-        return value * 2;
+    let a = [];
+
+    arr.forEach(function (value, index, arr) {
+        a[index] = value * 2;
     });
+
+    return a;
 }
 
 /*
@@ -21,9 +25,15 @@ Examples:
 
 */
 function onlyEvenValues(arr) {
-    return arr.filter(function (value, index, arr) {
-        return (value % 2) == 0;
+    let a = [];
+
+    arr.forEach(function (value, index, arr) {
+        if ((value % 2) == 0) {
+            a.push(value);
+        };
     });
+
+    return a;
 }
 
 /*
@@ -35,9 +45,13 @@ Examples:
 
 */
 function showFirstAndLast(arr) {
-    return arr.map(function (value, index, arr) {
-        return value[0] + value[value.length - 1];
+    let a = [];
+
+    arr.forEach(function (value, index, arr) {
+        a[index] = value[0] + value[value.length - 1];
     });
+
+    return a;
 }
 
 /*
@@ -50,10 +64,11 @@ Examples:
 
 */
 function addKeyAndValue(arr, key, newvalue) {
-    return arr.map(function (value, index, arr) {
+    arr.forEach(function (value, index, arr) {
         value[key] = newvalue;
-        return value;
     });
+
+    return arr;
 }
 
 /*
