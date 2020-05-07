@@ -7,7 +7,9 @@ Examples:
 
 */
 function doubleValues(arr){
-    
+    return arr.map(function (value, index, arr) {
+        return value * 2;
+    });
 }
 
 /*
@@ -19,7 +21,9 @@ Examples:
 
 */
 function onlyEvenValues(arr){
-    
+    return arr.filter(function (value, index, arr) {
+        return (value / 2) == 0 | (value / 2) == 1;
+    });
 }
 
 /*
@@ -31,7 +35,9 @@ Examples:
 
 */
 function showFirstAndLast(arr){
-    
+    return arr.map(function (value, index, arr) {
+        return value[0] + value[value.length-1];
+    });
 }
 
 /*
@@ -44,11 +50,14 @@ Examples:
 
 */
 function addKeyAndValue(arr,key,value){
-    
+    return arr.map(function(value, index, arr) {
+        return value[key] = value;
+    });
 }
 
 /*
-Write a function called vowelCount which accepts a string and returns an object with the keys as the vowel and the values as the number of times the vowel appears in the string. This function should be case insensitive so a lowercase letter and uppercase letter should count
+Write a function called vowelCount which accepts a string and returns an object with the keys as the vowel and the values as the number of times the vowel appears in the string. 
+This function should be case insensitive so a lowercase letter and uppercase letter should count
 
 Examples:
     vowelCount('Elie') // {e:2,i:1};
@@ -58,7 +67,11 @@ Examples:
     vowelCount('I Am awesome and so are you') // {i: 1, a: 4, e: 3, o: 3, u: 1};
 */
 function vowelCount(str){
-   
+   return str.map( function (value, index, arr) {
+        return value.split().filter(function (value, index, arr) {
+            
+        });
+   });
 }
 
 /*
