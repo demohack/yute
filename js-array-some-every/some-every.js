@@ -1,5 +1,7 @@
 /*
-Write a function called hasOddNumber which accepts an array and returns true if the array contains at least one odd number, otherwise it returns false.
+Write a function called hasOddNumber which accepts an array 
+and returns true if the array contains at least one odd number, 
+otherwise it returns false.
 
 Examples:
     hasOddNumber([1,2,2,2,2,2,4]) // true
@@ -7,7 +9,7 @@ Examples:
 */
 
 function hasOddNumber(arr) {
-    arr.some(function (value, index, arr) {
+    return arr.some(function (value, index, arr) {
         return value % 2 != 0;
     });
 }
