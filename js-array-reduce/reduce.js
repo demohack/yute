@@ -2,15 +2,15 @@
 Write a function called extractValue which accepts an array of objects and a key 
 and returns a new array with the value of each object at the key.
 */
-const arr = [{
-    name: 'Elie'
-}, {
-    name: 'Tim'
-}, {
-    name: 'Matt'
-}, {
-    name: 'Colt'
-}];
+// const arr = [{
+//     name: 'Elie'
+// }, {
+//     name: 'Tim'
+// }, {
+//     name: 'Matt'
+// }, {
+//     name: 'Colt'
+// }];
 
 function extractValue(arr, key) {
     let cf = function (accumulator, currentValue) {
@@ -27,7 +27,7 @@ function extractValue(arr, key) {
     return a;
 }
 
-extractValue(arr, 'name'); // ['Elie', 'Tim', 'Matt', 'Colt']
+// extractValue(arr, 'name'); // ['Elie', 'Tim', 'Matt', 'Colt']
 
 /*
 Write a function called vowelCount which accepts a string and returns an object with the keys as the vowel and
@@ -52,11 +52,11 @@ function vowelCount(str) {
     return r;
 }
 
-vowelCount('Elie'); // {e:2,i:1};
-vowelCount('Tim'); // {i:1};
-vowelCount('Matt'); // {a:1})
-vowelCount('hmmm'); // {};
-vowelCount('I Am awesome and so are you'); // {i: 1, a: 4, e: 3, o: 3, u: 1};
+// vowelCount('Elie'); // {e:2,i:1};
+// vowelCount('Tim'); // {i:1};
+// vowelCount('Matt'); // {a:1})
+// vowelCount('hmmm'); // {};
+// vowelCount('I Am awesome and so are you'); // {i: 1, a: 4, e: 3, o: 3, u: 1};
 
 /*
 Write a function called addKeyAndValue which accepts an array of objects and returns the array of objects passed to it with each object now including the key and value passed to the function.
@@ -78,15 +78,15 @@ Examples:
 
 */
 
-const arr = [{
-    name: 'Elie'
-}, {
-    name: 'Tim'
-}, {
-    name: 'Matt'
-}, {
-    name: 'Colt'
-}];
+// const arr = [{
+//     name: 'Elie'
+// }, {
+//     name: 'Tim'
+// }, {
+//     name: 'Matt'
+// }, {
+//     name: 'Colt'
+// }];
 
 function addKeyAndValue(arr, key, value) {
     let cf = function (accumulator, currentValue) {
@@ -102,7 +102,7 @@ function addKeyAndValue(arr, key, value) {
     return r;
 }
 
-addKeyAndValue(arr, 'title', 'Instructor');
+// addKeyAndValue(arr, 'title', 'Instructor');
 
 /*
 Write a function called partition which accepts an array and a callback and
@@ -131,17 +131,18 @@ function partition(arr, callback) {
 
     return r;
 }
+
 function isEven(val){
     return val % 2 === 0;
 }
 
-const arr = [1,2,3,4,5,6,7,8];
+// const arr = [1,2,3,4,5,6,7,8];
 
-partition(arr, isEven); // [[2,4,6,8], [1,3,5,7]];
+// partition(arr, isEven); // [[2,4,6,8], [1,3,5,7]];
 
 function isLongerThanThreeCharacters(val){
     return val.length > 3;
 }
 
-const names = ['Elie', 'Colt', 'Tim', 'Matt']; // [['Elie', 'Colt', 'Matt'], ['Tim']]
-partition(names, isLongerThanThreeCharacters);
+// const names = ['Elie', 'Colt', 'Tim', 'Matt']; // [['Elie', 'Colt', 'Matt'], ['Tim']]
+// partition(names, isLongerThanThreeCharacters);
