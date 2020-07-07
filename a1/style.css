@@ -1,0 +1,172 @@
+.hideme {
+    display: none;
+}
+
+/*
+// resizable referenced from:
+// http://jsfiddle.net/3jMQD/
+*/
+
+.resizeme {
+    background: lime;
+}
+
+.resizable {
+    background: cyan;
+    position: relative;
+}
+
+.resizer {
+    width: 10px;
+    height: 10px;
+    background: blue;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    cursor: se-resize;
+}
+
+/*
+// draggable referenced from:
+// https://www.w3schools.com/howto/howto_js_draggable.asp
+*/
+
+.mydivheader {
+    padding: 10px;
+    cursor: move;
+    z-index: 10;
+}
+
+/*
+// custom code
+*/
+
+#memelist {
+    display: block;
+    margin: auto;
+    width: 236px;
+}
+
+.memeItem {
+    display: block;
+    margin: auto;
+    width: 236px;
+}
+
+.controlBlock {
+    margin-top: 10px;
+    position: relative;
+    width: 300px;
+    height: 230px;
+}
+
+.previewDIV {
+    background-color: black;
+    position: relative;
+    width: 300px;
+    height: 300px;
+}
+
+.previewIMG {
+    background-color: black;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 295px;
+    height: 225px;
+}
+
+.previewIMG img {
+    background-color: black;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 295px;
+    height: 225px;
+}
+
+.previewTXT1 {
+    background-color: #FFFFFF;
+    position: absolute;
+    top: 4px;
+    left: 47px;
+    width: 200px;
+    opacity: 0.75;
+}
+
+.previewTXT2 {
+    background-color: #FFFFFF;
+    position: absolute;
+    top: 182px;
+    left: 47px;
+    width: 200px;
+    opacity: 0.75;
+}
+
+.previewBTN {
+    background-color: #FFFFFF;
+    position: relative;
+    top: 240px;
+    left: 0px;
+    width: 100px;
+    opacity: 0.75;
+    visibility: hidden;
+}
+
+#dropdownDiv {
+    position: relative;
+    width: 200px;
+    height: 25px;
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+#dropdownSelect {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 200px;
+    height: 25px;
+    line-height: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+#imageURL {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 183px;
+    height: 23px;
+    border: 1px solid #556;
+}
+
+/* div layouts */
+div.a {
+    display: inline;
+    /* the default for span */
+    /* width: 100px;
+    height: 100px; */
+    padding: 5px;
+    border: 1px solid blue;
+    background-color: yellow;
+}
+
+div.b {
+    display: inline-block;
+    /* width: 100px;
+    height: 100px; */
+    padding: 5px;
+    border: 1px solid blue;
+    background-color: yellow;
+}
+
+div.c {
+    display: block;
+    /* width: 100px;
+    height: 100px; */
+    padding: 5px;
+    border: 1px solid blue;
+    background-color: yellow;
+}
