@@ -213,14 +213,16 @@ function handleClick(evt) {
         return;
     }
 
-    placeInTable(y, x, currPlayer, function () {
-        clickInProgress = false;
-        switchPlayer();
+    let player = currPlayer;
+    switchPlayer();
 
-        if (checkForWin(currPlayer)) {
+    placeInTable(y, x, player, function () {
+        clickInProgress = false;
+
+        if (checkForWin(player)) {
             gameWon = true;
-            updateScore(currPlayer);
-            return endGame(`Player ${currPlayer} won!`);
+            updateScore(player);
+            return endGame(`Player ${player} won!`);
         }
 
         if (checkForTie()) {
