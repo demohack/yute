@@ -1,11 +1,19 @@
-Step One: Planning
-Before looking at our code, take a few minutes to think about how you would build a game like this using HTML/JS/CSS:
+My coding style
+- Make code self-documenting, to minimize comments
+- use strict to force variable declarations
+- 
 
-- what HTML would be useful for the game board itself?
-- how could you represent a played-piece in the HTML board?
-in the JavaScript, what would be a good structure for the in-memory game board?
-- what might the flow of the game be?
+# weaknesses
+- variable names: 
+    = player 1 not intuitive connection to player blue
+    = likewise player 2
+    = blueScore should have been named playerOneScore
+    = redScore should have been named playerTwoScore
 
-Then, write down some functions names/descriptions that would be useful for this game.
+- variable assignmenets undefined vs null
 
-HTML - table, td, th
+
+# actions
+- removed wait function, with its var declarations
+- renamed blueScore to scorePlayer1, redScore -> scorePlayer2
+- used const declaration for WIDTH and HEIGHT

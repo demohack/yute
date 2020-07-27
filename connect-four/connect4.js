@@ -6,8 +6,8 @@
  * board fills (tie)
  */
 
-let WIDTH = 6;
-let HEIGHT = 6;
+const WIDTH = 6;
+const HEIGHT = 6;
 
 let currPlayer = 1; // active player: 1 or 2
 let board = undefined; // array of rows, each row is array of cells  (board[y][x])
@@ -18,8 +18,8 @@ let gameWon = false;
 let gameTied = false;
 let clickInProgress = false;
 
-let blueScore = 0;
-let redScore = 0;
+let scorePlayer1 = 0;
+let scorePlayer2 = 0;
 
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
@@ -108,10 +108,13 @@ function placeInTable(y, x, player, callback) {
     // add line to update in-memory board
     board[y][x] = player;
 
-    let cn = (player == 1) ? "player-1-piece" : "player-2-piece";
-
     // get top div
     let topDiv = htmlBoard.querySelector(`#h-${x} div`);
+    if (topDiv == null)
+    {
+        callback();
+        return false;
+    }
 
     // animate drop piece
     topDiv.classList.add("drop-piece");
@@ -120,6 +123,8 @@ function placeInTable(y, x, player, callback) {
 
     // wait 2 seconds, and then...
     setTimeout(function () {
+        let cn = (player == 1) ? "player-1-piece" : "player-2-piece";
+
         // reset top div
         topDiv.classList.remove("drop-piece");
         topDiv.style.backgroundColor = "";
@@ -130,15 +135,6 @@ function placeInTable(y, x, player, callback) {
 
         callback();
     }, 2000);
-}
-
-function wait(ms) {
-    var d = new Date();
-    var d2 = null;
-    do {
-        d2 = new Date();
-    }
-    while (d2 - d < ms);
 }
 
 /** endGame: announce game end */
@@ -154,22 +150,22 @@ function updateResult(msg) {
 
 function updateScore(player) {
     if (player == 1) {
-        updateBlueScore(blueScore + 1);
+        updateBlueScore(scorePlayer1 + 1);
     } else {
-        updateRedScore(redScore + 1);
+        updateRedScore(scorePlayer2 + 1);
     }
 }
 
 function updateBlueScore(score) {
-    blueScore = score;
+    scorePlayer1 = score;
     let htmlBlueScore = document.querySelector("#blueScore");
-    htmlBlueScore.innerHTML = `blue: ${blueScore}`;
+    htmlBlueScore.innerHTML = `blue: ${scorePlayer1}`;
 }
 
 function updateRedScore(score) {
-    redScore = score;
+    scorePlayer2 = score;
     let htmlRedScore = document.querySelector("#redScore");
-    htmlRedScore.innerHTML = `red: ${redScore}`;
+    htmlRedScore.innerHTML = `red: ${scorePlayer2}`;
 }
 
 /** switchPlayer: switch players */
@@ -210,6 +206,7 @@ function handleClick(evt) {
     // get next spot in column (if none, ignore click)
     let y = findSpotForCol(x);
     if (y === null) {
+        clickInProgress = false;
         return;
     }
 
@@ -309,17 +306,17 @@ function checkForWin(player) {
     }
 }
 
+function setRestartButton() {
+    // get "htmlBoard" variable from the item in HTML w/ID of "board"
+    let button = document.querySelector("#restartButton");
+    button.addEventListener("click", restartButtonClick);
+}
+
 function restartButtonClick() {
     makeBoard();
     deleteHtmlBoard();
     makeHtmlBoard();
     switchPlayer();
-}
-
-function setRestartButton() {
-    // get "htmlBoard" variable from the item in HTML w/ID of "board"
-    let button = document.querySelector("#restartButton");
-    button.addEventListener("click", restartButtonClick);
 }
 
 setRestartButton();
