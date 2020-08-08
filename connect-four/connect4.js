@@ -1,4 +1,5 @@
 "use strict"
+// uniqlo code  UQ20-CWRBBHQT5ZXX
 /** Connect Four
  *
  * Player 1 and 2 alternate turns. On each turn, a piece is dropped down a
@@ -9,17 +10,98 @@
 const WIDTH = 6;
 const HEIGHT = 6;
 
-let currPlayer = 1; // active player: 1 or 2
 let board = undefined; // array of rows, each row is array of cells  (board[y][x])
 let htmlBoard = undefined;
 let columnTop = undefined;
 
-let gameWon = false;
-let gameTied = false;
-let clickInProgress = false;
+function getHtmlBoard() {
+    if (htmlBoard == undefined) {
+        htmlBoard = document.querySelector("#board");
+    }
+    return htmlBoard;
+}
+class Player {
+    constructor(playerNumber, playerScore = 0) {
+        this.number = playerNumber;
+        this.color = playerNumber == 1 ? "blue" : "red";
+        this.score = playerScore;
+    }
 
-let scorePlayer1 = 0;
-let scorePlayer2 = 0;
+    addScore() {
+        this.score = this.score + 1;
+    }
+
+    updateScore() {
+        let html = document.querySelector(`#${this.color}Score`);
+        html.innerHTML = `player ${this.number}: ${this.score}`;
+    }
+
+    unsetTopClass() {
+        columnTop.classList.remove(`player-${this.number}`);
+    }
+
+    setTopClass() {
+        columnTop.classList.add(`player-${this.number}`);
+    }
+}
+
+class Game {
+    constructor() {
+        this.gameWon = false;
+        this.gameTied = false;
+        this.clickInProgress = false;
+
+        this.player1 = new Player(1);
+        this.player2 = new Player(2);
+
+        this.currPlayer = this.player1;
+        this.startPlayer = this.player1;
+    }
+
+    getCurrentPlayer() {
+        return this.currPlayer;
+    }
+
+    setCurrentPlayer(newPlayer) {
+        return this.currPlayer = newPlayer;
+    }
+
+    switchCurrent() {
+        return this.currPlayer = this.currPlayer.number == 1 ? this.player2 : this.player1;
+    }
+
+    getStartPlayer() {
+        return this.startPlayer;
+    }
+
+    setStartPlayer(newPlayer) {
+        return this.startPlayer = newPlayer;
+    }
+
+    switchStart() {
+        return this.startPlayer = this.startPlayer.number == 1 ? this.player2 : this.player1;
+    }
+
+    clearGameCondition() {
+        this.gameWon = false;
+        this.gameTied = false;
+        this.clickInProgress = false;
+    }
+
+    setClickInProgress() {
+        this.clickInProgress = true;
+    }
+
+    unsetClickInProgress() {
+        this.clickInProgress = false;
+    }
+
+    getGamePause() {
+        return this.gameWon || this.gameTied || this.clickInProgress;
+    }
+}
+
+let game = new Game();
 
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
@@ -37,41 +119,20 @@ function makeBoard() {
 
         board[i] = cells;
     }
-
-    gameWon = false;
-    gameTied = false;
 }
 
 function deleteHtmlBoard() {
     // get "htmlBoard" variable from the item in HTML w/ID of "board"
-    htmlBoard = document.querySelector("#board");
-    htmlBoard.innerHTML = "";
+    getHtmlBoard().innerHTML = "";
 }
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
 
 function makeHtmlBoard() {
     // get "htmlBoard" variable from the item in HTML w/ID of "board"
-    htmlBoard = document.querySelector("#board");
+    let htmlBoard = getHtmlBoard();
 
-    // create the table header row "column top"
-    let top = document.createElement("tr");
-    top.id = "column-top";
-    top.addEventListener("click", handleClick);
-
-    for (let x = 0; x < WIDTH; x++) {
-        let td = document.createElement("td");
-        td.id = `h-${x}`;
-
-        let div = document.createElement("div");
-        div.classList.add("top-piece");
-        td.append(div);
-
-        top.append(td);
-    }
-
-    htmlBoard.append(top);
-    columnTop = top;
+    htmlBoard.append(makeColumnTop());
 
     // create the HTML game board for given HEIGHT and WIDTH
     for (let y = 0; y < HEIGHT; y++) {
@@ -88,6 +149,27 @@ function makeHtmlBoard() {
         }
         htmlBoard.append(row);
     }
+}
+
+// create the table header row "column top"
+function makeColumnTop() {
+    // create the table header row "column top"
+    let top = document.createElement("tr");
+    top.id = "column-top";
+    top.addEventListener("click", handleClick);
+
+    for (let x = 0; x < WIDTH; x++) {
+        let td = document.createElement("td");
+        td.id = `h-${x}`;
+
+        let div = document.createElement("div");
+        div.classList.add("top-piece");
+        td.append(div);
+
+        top.append(td);
+    }
+
+    return columnTop = top;
 }
 
 /** findSpotForCol: given column x, return top empty y (null if filled) */
@@ -110,20 +192,19 @@ function placeInTable(y, x, player, callback) {
 
     // get top div
     let topDiv = htmlBoard.querySelector(`#h-${x} div`);
-    if (topDiv == null)
-    {
+    if (topDiv == null) {
         callback();
         return false;
     }
 
     // animate drop piece
     topDiv.classList.add("drop-piece");
-    topDiv.style.backgroundColor = (player == 1) ? "blue" : "red";
+    topDiv.style.backgroundColor = game.getCurrentPlayer().color;
     topDiv.style.top = `${66 * (HEIGHT - y)}px`;
 
     // wait 2 seconds, and then...
     setTimeout(function () {
-        let cn = (player == 1) ? "player-1-piece" : "player-2-piece";
+        let cn = `player-${game.getCurrentPlayer().number}-piece`;
 
         // reset top div
         topDiv.classList.remove("drop-piece");
@@ -137,66 +218,19 @@ function placeInTable(y, x, player, callback) {
     }, 2000);
 }
 
-/** endGame: announce game end */
-
-function endGame(msg) {
-    updateResult(msg);
-}
-
 function updateResult(msg) {
     let htmlResult = document.querySelector("#result");
     htmlResult.innerHTML = msg;
-}
-
-function updateScore(player) {
-    if (player == 1) {
-        updateBlueScore(scorePlayer1 + 1);
-    } else {
-        updateRedScore(scorePlayer2 + 1);
-    }
-}
-
-function updateBlueScore(score) {
-    scorePlayer1 = score;
-    let htmlBlueScore = document.querySelector("#blueScore");
-    htmlBlueScore.innerHTML = `blue: ${scorePlayer1}`;
-}
-
-function updateRedScore(score) {
-    scorePlayer2 = score;
-    let htmlRedScore = document.querySelector("#redScore");
-    htmlRedScore.innerHTML = `red: ${scorePlayer2}`;
-}
-
-/** switchPlayer: switch players */
-
-function switchPlayer(newPlayer) {
-    if (newPlayer == undefined) {
-        newPlayer = currPlayer == 1 ? 2 : 1;
-    }
-
-    // switch currPlayer 1 <-> 2
-    currPlayer = newPlayer;
-
-    if (newPlayer == 1) {
-        columnTop.classList.remove("player-2");
-        columnTop.classList.add("player-1");
-        updateResult("Blue to play:")
-    } else {
-        columnTop.classList.remove("player-1");
-        columnTop.classList.add("player-2");
-        updateResult("Red to play:")
-    }
 }
 
 /** handleClick: handle click of column top to play piece */
 
 function handleClick(evt) {
     // exit if game has been won or is tied
-    if (gameWon || gameTied || clickInProgress) {
+    if (game.getGamePause()) {
         return;
     }
-    clickInProgress = true;
+    game.setClickInProgress();
 
     // get x from ID of clicked cell
     let id = evt.target.parentElement.id;
@@ -206,26 +240,29 @@ function handleClick(evt) {
     // get next spot in column (if none, ignore click)
     let y = findSpotForCol(x);
     if (y === null) {
-        clickInProgress = false;
+        game.unsetClickInProgress();
         return;
     }
 
-    let player = currPlayer;
-    switchPlayer();
+    let player = game.getCurrentPlayer();
+    player.unsetTopClass();
 
-    placeInTable(y, x, player, function () {
-        clickInProgress = false;
+    placeInTable(y, x, player.number, function () {
+        game.unsetClickInProgress();
 
-        if (checkForWin(player)) {
-            gameWon = true;
-            updateScore(player);
-            return endGame(`Player ${player} won!`);
+        if (checkForWin(player.number)) {
+            game.gameWon = true;
+            player.addScore();
+            player.updateScore();
+            return updateResult(`player ${player.number} won!`);
         }
 
         if (checkForTie()) {
-            gameTied = true;
-            return endGame(`Game tied!`);
+            game.gameTied = true;
+            return updateResult(`game tied!`);
         }
+
+        game.switchCurrent().setTopClass();
     });
 }
 
@@ -313,15 +350,19 @@ function setRestartButton() {
 }
 
 function restartButtonClick() {
-    makeBoard();
     deleteHtmlBoard();
     makeHtmlBoard();
-    switchPlayer();
+    makeBoard();
+    game.clearGameCondition();
+    game.switchStart().setTopClass();
+    updateResult(`player ${game.getCurrentPlayer().number} to start`);
 }
 
 setRestartButton();
-makeBoard();
 makeHtmlBoard();
-switchPlayer(1);
-updateBlueScore(0);
-updateRedScore(0);
+makeBoard();
+game.clearGameCondition();
+game.setCurrentPlayer(game.player1).setTopClass();
+updateResult(`player ${game.getCurrentPlayer().number} to start`);
+game.player1.updateScore();
+game.player2.updateScore();
