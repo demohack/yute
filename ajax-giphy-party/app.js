@@ -28,5 +28,10 @@ function removeClick() {
     let $box = $("#picture-space");
     $box.empty();
 }
+$("#user-input").on("keypress", function(e){
+    if (e.which == 13) {
+        searchCick();
+    }
+});
 $("#search-btn").on("click", searchCick);
 $("#remove-btn").on("click", removeClick);
