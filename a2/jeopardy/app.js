@@ -33,7 +33,8 @@ $(document).ready(function () {
 });
 
 const $body = $(document.body);
-const $html = `hello, <b>my name is</b> jQuery.`;
+const $html = 
+`hello, <b>my name is</b> jQuery.`;
 
 function inspectElements(parsedHTML) {
     let nodeNames = [];

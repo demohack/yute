@@ -1,21 +1,52 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Jeopardy</title>
-  <link href="https://fonts.googleapis.com/css?family=Copse&display=swap"
-        rel="stylesheet">
-  <link rel="stylesheet" href="jeopardy.css">
-</head>
-<body>
 
-<script src="https://unpkg.com/jquery"></script>
-<script src="https://unpkg.com/axios/dist/axios.js"></script>
-<script src="https://unpkg.com/lodash"></script>
-<script src="jeopardy.js"></script>
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Jeopardy</title>
+      <link href="https://fonts.googleapis.com/css?family=Copse&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="jeopardy.css">
+</head>
+
+<body>
+      <div id="top-section">
+            <div class="jumbotron">
+                  <h1>Jeopardy</h1>
+                  <p>Game of Trivia</p>
+            </div>
+            <div class="jumbotron">
+                  <h2 id="player1score">0</h2>
+                  <span id="player1">player 1</span>
+            </div>
+            <div class="jumbotron">
+                  <h2 id="player2score">0</h2>
+                  <span id="player2">player 2</span>
+            </div>
+            <div class="jumbotron">
+                  <h2 id="player3score">0</h2>
+                  <span id="player3">player 3</span>
+            </div>
+            <button type="button" class="btn btn-primary">Restart Game</button>
+
+            <div class="form-group">
+                  <label for="user-input">user input:</label>
+                  <input type="text" class="form-control" id="user-input">
+            </div>
+      </div>>
+      <div id="mid-section">
+
+      </div>
+      <div id="bottom-section">
+
+      </div>
+      <script src="https://unpkg.com/jquery"></script>
+      <script src="https://unpkg.com/axios/dist/axios.js"></script>
+      <script src="https://unpkg.com/lodash"></script>
+      <script src="jeopardy.js"></script>
 
 </body>
+
 </html>

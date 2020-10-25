@@ -69,3 +69,5 @@ jeopardy API wrapper
 2020-10-24 18:05-18:25 implemented an additional js file loader, to get around not being able to edit the html file
 
 2020-10-24 18:30-19:36 tested jquery code to append HTML elements
+
+2020-10-24 23:17-
