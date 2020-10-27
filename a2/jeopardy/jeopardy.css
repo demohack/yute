@@ -5,3 +5,79 @@
   #8d2ab5
   #74119c
 */
+
+table {
+  table-layout: fixed;
+  width: 480px;
+  border-collapse: collapse;
+  border: 0px solid purple;
+}
+
+thead th:nth-child(1) {
+  width: 80px;
+}
+
+thead th:nth-child(2) {
+  width: 80px;
+}
+
+thead th:nth-child(3) {
+  width: 80px;
+}
+
+thead th:nth-child(4) {
+  width: 80px;
+}
+
+thead th:nth-child(5) {
+  width: 80px;
+}
+
+thead th:nth-child(6) {
+  width: 80px;
+}
+
+th, td {
+  padding: 5px;
+}
+
+.table tr {
+  height: 40px;
+}
+
+
+.table tr:nth-child(1) {
+  height: 80px;
+}
+
+.table tr:nth-child(2) {
+  height: 80px;
+}
+
+.table tr:nth-child(3) {
+  height: 80px;
+}
+
+.table tr:nth-child(4) {
+  height: 80px;
+}
+
+.table tr:nth-child(5) {
+  height: 80px;
+}
+
+.question {
+  max-width: 80px;
+  max-height: 80px;
+}
+
+.answer {
+  max-width: 80px;
+  max-height: 80px;
+}
+
+.hide {
+  width: 0px;
+  height: 0px;
+  visibility: hidden;
+}
