@@ -36,18 +36,3 @@ $(document).ready(function () {
 
 const $body = $(document.body);
 
-function inspectElements(parsedHTML) {
-    let nodeNames = [];
-
-    // Gather the parsed HTML's node names
-    $.each(parsedHTML, function (i, el) {
-        nodeNames[i] = "<li>" + el.nodeName + "</li>";
-    });
-
-    // Insert the node names
-    $body.append("<h3>Node Names:</h3>");
-    $("<ol></ol>")
-        .append(nodeNames.join(""))
-        .appendTo($body);
-}
-
