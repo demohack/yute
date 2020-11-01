@@ -1,39 +1,5 @@
-/* <div id="top-section">
-<div class="jumbotron">
-      <h1>Jeopardy</h1>
-      <p>Game of Trivia</p>
-</div>
-<div class="jumbotron">
-      <h2 id="player1score">0</h2>
-      <span id="player1">player 1</span>
-</div>
-<div class="jumbotron">
-      <h2 id="player2score">0</h2>
-      <span id="player2">player 2</span>
-</div>
-<div class="jumbotron">
-      <h2 id="player3score">0</h2>
-      <span id="player3">player 3</span>
-</div>
-<button type="button" class="btn btn-primary">Restart Game</button>
-
-<div class="form-group">
-      <label for="user-input">user input:</label>
-      <input type="text" class="form-control" id="user-input">
-</div>
-</div> */
-
-const $html = `
 <div class="container">
 <h2>Lets Play Jeopardy!</h2>
-
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="useModalCheckBox">
-  <label class="form-check-label" for="useModalCheckBox">
-    Use modal box
-  </label>
-</div>
-
 <button type="button" id="restartButton" class="btn btn-info btn-lg">Restart Game</button>
 <button type="button" id="getAPIDataButton" class="btn btn-info btn-lg">Get API Data</button>
 
@@ -54,7 +20,7 @@ const $html = `
 </div>
 </div>
 <div id="mid-section">
-<table id="jeopardy" class="table-bordered table-dark">
+<table id="jeopardy" class="table table-bordered table-dark">
       <thead>
             <tr>
                   <th id="th-0" class="js-panel bg-primary">
@@ -243,4 +209,3 @@ const $html = `
 </div>
 <div id="bottom-section">
 </div>
-`;

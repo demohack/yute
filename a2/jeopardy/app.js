@@ -22,7 +22,9 @@ function appjs_postload() {
     //         createTable
 }
 
+
 $(document).ready(function () {
+    let $body = $(document.body);
     console.log("#### appjs document.ready called ####");
 
     let parsedHTML = $.parseHTML($html);
@@ -30,9 +32,17 @@ $(document).ready(function () {
     // Append the parsed HTML
     $body.prepend(parsedHTML);
 
+    /** On click of start / restart button, set up game. */
+    $('#restartButton').on("click", () => {
+        fillTable();
+    });
+
+    $('#getAPIDataButton').on("click", async () => {
+        showLoadingView();
+        setGlobalCategories(await getAPIData());
+        hideLoadingView();
+    });
+
     // Get the show going!
     setupAndStart();
 });
-
-const $body = $(document.body);
-

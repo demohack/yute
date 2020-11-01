@@ -8,72 +8,39 @@
 
 table {
   table-layout: fixed;
-  width: 480px;
+  width: 900px;
+  height: 550px;
   border-collapse: collapse;
   border: 0px solid purple;
 }
 
-thead th:nth-child(1) {
-  width: 80px;
-}
-
-thead th:nth-child(2) {
-  width: 80px;
-}
-
-thead th:nth-child(3) {
-  width: 80px;
-}
-
-thead th:nth-child(4) {
-  width: 80px;
-}
-
-thead th:nth-child(5) {
-  width: 80px;
-}
-
-thead th:nth-child(6) {
-  width: 80px;
-}
-
-th, td {
+thead th {
+  text-transform: uppercase;
+  text-align: center;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 2 em;
+  height: 50px;
+  width: 150px;
   padding: 5px;
 }
 
-.table tr {
-  height: 40px;
-}
-
-
-.table tr:nth-child(1) {
-  height: 80px;
-}
-
-.table tr:nth-child(2) {
-  height: 80px;
-}
-
-.table tr:nth-child(3) {
-  height: 80px;
-}
-
-.table tr:nth-child(4) {
-  height: 80px;
-}
-
-.table tr:nth-child(5) {
-  height: 80px;
+.table td {
+  text-align: center;
+  font-size: 1 em;
+  height: 100px;
+  width: 150px;
+  padding: 5px;
 }
 
 .question {
-  max-width: 80px;
-  max-height: 80px;
+  text-align: center;
+  font-size: 1 em;
 }
 
 .answer {
-  max-width: 80px;
-  max-height: 80px;
+  text-align: center;
+  font-size: 1 em;
 }
 
 .hide {

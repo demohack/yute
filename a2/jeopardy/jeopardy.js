@@ -35,16 +35,17 @@ let catIDs = [];
 
 let cluesCellsMap = null;
 // map category clues to table cells
+// filled when table of categories/clues are created
 
 /** getCategories()
  */
-const API_JEOPARDY_CATEGORIES = "http://jservice.io/api/categories";
-const API_JEOPARDY_CATEGORIES_COUNT = 1;
-const API_JEOPARDY_CATEGORIES_OFFSET = 0;
+const HTTP_JEOPARDY_API = "http://jservice.io/api";
+const CATEGORIES_COUNT_DOWNLOAD_CHUNK = 10;
+let getAPIDataCategoriesOffset = 0;
 
-async function getCategories(count, offset) {
+async function getCategories2(count, offset) {
     let response = await axios.get(
-        API_JEOPARDY_CATEGORIES, {
+        `${HTTP_JEOPARDY_API}/categories`, {
             params: {
                 count,
                 offset
@@ -56,11 +57,10 @@ async function getCategories(count, offset) {
 
 /** getCategoryClues()
  */
-const API_JEOPARDY_CLUES = "http://jservice.io/api/clues";
 
-async function getCategoryClues(category) {
+async function getCategoryClues2(category) {
     let response = await axios.get(
-        API_JEOPARDY_CLUES, {
+        `${HTTP_JEOPARDY_API}/clues`, {
             params: {
                 category
             }
@@ -69,23 +69,23 @@ async function getCategoryClues(category) {
     return response.data;
 };
 
-async function getAllClues() {
-    let categories = getCategories(API_JEOPARDY_CATEGORIES_COUNT, API_JEOPARDY_CATEGORIES_OFFSET);
+// getAPIData() gets categories / clues data in small chunks, run when user clicks on reload button
+// does not modify the global categories variable, but returns a new chunk is then handled by the caller
+// does modify the global variable getAPIDataCategoriesOffset, to maintain state
+async function getAPIData() {
+    let categories = await getCategories2(CATEGORIES_COUNT_DOWNLOAD_CHUNK, getAPIDataCategoriesOffset);
+    getAPIDataCategoriesOffset += CATEGORIES_COUNT_DOWNLOAD_CHUNK;
 
     let item = null;
 
-    for (i = 0; i < API_JEOPARDY_CATEGORIES_COUNT; i++) {
+    for (i = 0; i < CATEGORIES_COUNT_DOWNLOAD_CHUNK; i++) {
         item = categories[i];
-        item.clues = await getCategoryClues(item.id);
+        item.clues = await getCategoryClues2(item.id);
     }
 
     return categories;
 }
 
-function randomizeCategories() {
-
-    return sampleCategories;
-}
 
 /** getCategoryIds()
  *
@@ -104,14 +104,15 @@ function getRandomizedList(list, count) {
     let m = new Map();
     let item = null;
 
-    // TODO: solve the problem of making sure all six categories are uniquely random
-
     do {
         item = _.sample(list);
+
+        // ensures all six categories are uniquely random
         if (!m.has(item)) {
             m.set(item, item);
             randomizedList.push(item);
         }
+
     } while (m.size < count)
 
     return randomizedList;
@@ -156,10 +157,11 @@ async function fillTable() {
     $jeopardy = $("#jeopardy");
     for (i = 0; i < 6; i++) {
         if (typeof randomizedCatIDs[i] != "undefined") {
-            $thd = $(`#th-${i} .th-panel`);
-
             category = catIDsMap.get(randomizedCatIDs[i]);
+
+            $thd = $(`#th-${i} .th-panel`);
             $thd.html(category.title);
+
             randomizedClues = getRandomizedList(category.clues, 5);
 
             for (j = 0; j < 5; j++) {
@@ -169,6 +171,7 @@ async function fillTable() {
 
                 $tdd = $(`#${key} .cover`);
                 $tdd.toggleClass("hide", false);
+
                 $tdd = $(`#${key} .answer`);
                 $tdd.toggleClass("hide", true);
             }
@@ -187,7 +190,6 @@ async function fillTable() {
  */
 
 function handleClick(evt) {
-    // TODO: trace target
     let target = $(evt.target);
 
     if (target.hasClass("js-content")) {
@@ -202,19 +204,36 @@ function handleClick(evt) {
         let cover = $(`#${key} .cover`);
         cover.toggleClass("hide", true);
 
-        let myModal = $("#myModal");
-        myModal.attr("key", key);
-        let modalHead = myModal.find(".modal-title");
-        modalHead.html(cluesCellsMap.get(key).category.title);
+        if ($("#useModalCheckBox").prop("checked") == "checked") {
+            let modalBox = $("#modalBox");
+            modalBox.attr("key", key);
 
-        let modalBody = myModal.find(".modal-body");
-        modalBody.html(cluesCellsMap.get(key).question);
-        myModal.modal();
+            let modalHead = modalBox.find(".modal-title");
+            modalHead.html(cluesCellsMap.get(key).category.title);
+
+            let modalBody = modalBox.find(".modal-body");
+            modalBody.html(cluesCellsMap.get(key).question);
+            modalBox.modal();
+
+            modalBox.on('hidden.bs.modal', function (e) {
+                let key = modalBox.attr("key");
+                let answer = $(`#${key} .answer`);
+                answer.html(cluesCellsMap.get(key).answer);
+                answer.toggleClass("hide", false);
+            });
+        } else {
+            let question = $(`#${key} .question`);
+            question.html(cluesCellsMap.get(key).question);
+            question.toggleClass("hide", false);
+
+            let answer = $(`#${key} .answer`);
+            answer.html(cluesCellsMap.get(key).answer);
+            answer.toggleClass("hide", true);
+    }
     };
-    // else handleClick on non-playable element
+    // else ignore clicks on non-playable element
 };
 
-$(document.body).on('click', handleClick);
 
 /** showLoadingView()
  *
@@ -226,12 +245,28 @@ $(document.body).on('click', handleClick);
  */
 
 function showLoadingView() {
+    // get the load button
+    // set disable click
 
+    let loadBtn = $("#getAPIDataButton");
+    loadBtn.attr("disable", "");
+
+    // add spinner and loading text
+    const spinnerHtml = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...';
+    loadBtn.html(spinnerHtml);
 };
 
 /** Remove the loading spinner and update the button used to fetch data. */
 
-function hideLoadingView() {};
+function hideLoadingView() {
+    // get the load button
+    // unset disable click
+    let loadBtn = $("#getAPIDataButton");
+    loadBtn.removeAttr("disable");
+
+    // restore load button text
+    loadBtn.html('Get API Data');
+};
 
 
 /** setupAndStart()
@@ -249,36 +284,24 @@ async function setupAndStart() {
     //     get clues
     // fill html table
 
-    categories = sampleCategories;
+    setGlobalCategories(sampleCategories);
+
+    fillTable();
+};
+
+// ensures one place of entry to assign global variable for categories and related set of variables
+function setGlobalCategories(newCats) {
+    categories = newCats;
     catIDsMap = new Map();
-    categories.forEach((element, index) => {
+    categories.forEach((element) => {
         catIDsMap.set(element.id, element);
     });
     catIDs = categories.map(c => c.id);
-
-    fillTable();
-
-    let myModal = $('#myModal');
-    myModal.on('hidden.bs.modal', function (e) {
-        let key = myModal.attr("key");
-        let answer = $(`#${key} .answer`);
-        answer.html(cluesCellsMap.get(key).answer);
-        answer.toggleClass("hide", false);
-    });
-
-    $('#restartButton').on("click", () => {
-        fillTable();
-    });
-};
-
-/** On click of start / restart button, set up game. */
-
-// TODO
+}
 
 
 /** On page load, add event handler for clicking clues */
-
-// TODO
+$(document.body).on('click', handleClick);
 
 
 /** loadFavicon()
@@ -337,11 +360,11 @@ function loadJS(url, runOnLoad) {
 };
 
 loadFavicon("favicon.ico");
+loadJS("sampledata.js");
+loadJS("apphtml.js");
 loadCSS("https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css");
 loadJS("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js");
 //loadJS("https://code.jquery.com/qunit/qunit-2.11.3.js");
-loadJS("sampledata.js");
-loadJS("apphtml.js");
 loadJS('app.js', () => {
     appjs_postload();
 });

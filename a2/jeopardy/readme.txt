@@ -76,3 +76,28 @@ jeopardy API wrapper
 
 https://stackoverflow.com/questions/5874652/prop-vs-attr
 
+2020-10-28
+
+2020-10-29
+
+2020-10-30
+
+2020-10-31 05:51-05:56 brainstorm list of goals / todos
+Goals:
+    - fix the non-responsive UI issue after clicking on button to load data from server
+    - implement the spin wheel feature, and also freeze UI elements during data download (this might solve the issue)
+    - implement the ability to download data in smaller chunks of 10 or 20 categories at a time
+    - implement storing category/clues data in localstorage
+    - store game state?
+    - game menu?
+    - cleanup code
+
+2020-10-31 09:21-
+    - resolved the non-responsive UI issue
+    - implemented the spin wheel using bootstrap
+    - implemented downloading data in 10 category chunks
+
+2020-10-31-1436-
+    - resolved layout issue, forced fix sized table, row heights, column widths
+    - implement required UI behavior, not using modal
+    - use checkbox to switch to modal or on table
