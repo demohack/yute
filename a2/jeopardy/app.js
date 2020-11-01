@@ -22,26 +22,18 @@ function appjs_postload() {
     //         createTable
 }
 
-
+// This is the true start up of the whole shebang.
 $(document).ready(function () {
     let $body = $(document.body);
     console.log("#### appjs document.ready called ####");
 
+    // I really don't like building out HTML code, it's slow and cumbersome.
+    // Also wanted to play with dynamically loading HTML from other files, but didn't quite get further into it.
+    // Was running into problem from Live Server not wanting to serve up html files without full html head code.
     let parsedHTML = $.parseHTML($html);
 
     // Append the parsed HTML
     $body.prepend(parsedHTML);
-
-    /** On click of start / restart button, set up game. */
-    $('#restartButton').on("click", () => {
-        fillTable();
-    });
-
-    $('#getAPIDataButton').on("click", async () => {
-        showLoadingView();
-        setGlobalCategories(await getAPIData());
-        hideLoadingView();
-    });
 
     // Get the show going!
     setupAndStart();

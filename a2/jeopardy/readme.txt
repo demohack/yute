@@ -87,17 +87,37 @@ Goals:
     - fix the non-responsive UI issue after clicking on button to load data from server
     - implement the spin wheel feature, and also freeze UI elements during data download (this might solve the issue)
     - implement the ability to download data in smaller chunks of 10 or 20 categories at a time
-    - implement storing category/clues data in localstorage
-    - store game state?
-    - game menu?
-    - cleanup code
 
 2020-10-31 09:21-
     - resolved the non-responsive UI issue
     - implemented the spin wheel using bootstrap
     - implemented downloading data in 10 category chunks
 
-2020-10-31-1436-
+2020-10-31 1436-
     - resolved layout issue, forced fix sized table, row heights, column widths
     - implement required UI behavior, not using modal
     - use checkbox to switch to modal or on table
+
+2020-10-31 20:08-
+goals:
+    x in non-modal mode, click on ? and see the question; click on the question and see the answer
+    - cleanup code
+
+not implementing
+    - implement random double jeopardy easter egg
+    - implement storing category/clues data in localstorage
+    - store game state?
+    - game menu?
+
+
+day    hrs
+-----------
+24-Oct	5
+25-Oct	2
+26-Oct	1
+27-Oct	1
+28-Oct	1
+29-Oct	1
+30-Oct	1
+31-Oct	4
+  	   16

@@ -33,6 +33,11 @@ thead th {
   padding: 5px;
 }
 
+.cover {
+  text-align: center;
+  font-size: 1 em;
+}
+
 .question {
   text-align: center;
   font-size: 1 em;

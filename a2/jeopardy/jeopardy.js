@@ -21,9 +21,8 @@
 //  ]
 
 let categories = [];
-// super list of categories and clues
+// list of categories and clues
 // filled once when app is first loaded
-// TODO: store categories in local cache
 
 let catIDsMap = null;
 // map catetory IDs to individual category data
@@ -37,12 +36,14 @@ let cluesCellsMap = null;
 // map category clues to table cells
 // filled when table of categories/clues are created
 
-/** getCategories()
- */
 const HTTP_JEOPARDY_API = "http://jservice.io/api";
 const CATEGORIES_COUNT_DOWNLOAD_CHUNK = 10;
 let getAPIDataCategoriesOffset = 0;
 
+/** getCategories()
+ *
+ *  connect to the API and get categories list a chunk at a time, with an offset
+ */
 async function getCategories2(count, offset) {
     let response = await axios.get(
         `${HTTP_JEOPARDY_API}/categories`, {
@@ -56,6 +57,9 @@ async function getCategories2(count, offset) {
 };
 
 /** getCategoryClues()
+ *
+ *  get the clues given a category
+ *
  */
 
 async function getCategoryClues2(category) {
@@ -69,9 +73,14 @@ async function getCategoryClues2(category) {
     return response.data;
 };
 
-// getAPIData() gets categories / clues data in small chunks, run when user clicks on reload button
-// does not modify the global categories variable, but returns a new chunk is then handled by the caller
-// does modify the global variable getAPIDataCategoriesOffset, to maintain state
+/** getAPIData()
+ *
+ *  gets categories / clues data in small chunks, run when user clicks on reload button
+ *
+ *  does not modify the global categories variable, but returns a new chunk and is then handled by the caller
+ *
+ *  side effects: does modify the global variable getAPIDataCategoriesOffset, to maintain state
+ */
 async function getAPIData() {
     let categories = await getCategories2(CATEGORIES_COUNT_DOWNLOAD_CHUNK, getAPIDataCategoriesOffset);
     getAPIDataCategoriesOffset += CATEGORIES_COUNT_DOWNLOAD_CHUNK;
@@ -87,18 +96,22 @@ async function getAPIData() {
 }
 
 
+const NUM_CATEGORIES = 6;
+
 /** getCategoryIds()
  *
  * Returns randomized array of category ids.
  *
  */
-
-const NUM_CATEGORIES = 6;
-
 function getCategoryIds() {
     return getRandomizedList(catIDs, NUM_CATEGORIES);
 }
 
+/** getRandomizedList()
+ *
+ * returns a randomized list, in chunks of count.
+ *
+ */
 function getRandomizedList(list, count) {
     let randomizedList = [];
     let m = new Map();
@@ -174,6 +187,9 @@ async function fillTable() {
 
                 $tdd = $(`#${key} .answer`);
                 $tdd.toggleClass("hide", true);
+
+                $tdd = $(`#${key} .question`);
+                $tdd.toggleClass("hide", true);
             }
         }
     }
@@ -183,10 +199,8 @@ async function fillTable() {
  *
  * Handle clicking on a clue: show the question or answer.
  *
- * Uses .showing property on clue to determine what to show:
- * - if currently null, show question & set .showing to "question"
- * - if currently "question", show answer & set .showing to "answer"
- * - if currently "answer", ignore click
+ * providing two ways to interact with the game: modal dialog or clicking on the square
+ * if non-modal, uses .hide class to determine logic to show the cover (?), the question, or the answer
  */
 
 function handleClick(evt) {
@@ -221,15 +235,36 @@ function handleClick(evt) {
                 answer.html(cluesCellsMap.get(key).answer);
                 answer.toggleClass("hide", false);
             });
+
         } else {
             let question = $(`#${key} .question`);
-            question.html(cluesCellsMap.get(key).question);
-            question.toggleClass("hide", false);
+
+            if (question.html() == "") {
+                question.html(cluesCellsMap.get(key).question);
+            }
 
             let answer = $(`#${key} .answer`);
-            answer.html(cluesCellsMap.get(key).answer);
-            answer.toggleClass("hide", true);
-    }
+            if (answer.html() == "") {
+                answer.html(cluesCellsMap.get(key).answer);
+            }
+
+            // this implementaiton we want to show the question, and then show the answer
+            if (question.hasClass("hide") && answer.hasClass("hide")) {
+                question.toggleClass("hide", false);
+            } else  {
+                question.toggleClass("hide", true);
+                answer.toggleClass("hide", false);
+            }
+
+            // this implementation toggles btwn question and answer
+            // if (question.hasClass("hide")) {
+            //     question.toggleClass("hide", false);
+            //     answer.toggleClass("hide", true);
+            // } else  {
+            //     question.toggleClass("hide", true);
+            //     answer.toggleClass("hide", false);
+            // }
+        }
     };
     // else ignore clicks on non-playable element
 };
@@ -237,8 +272,8 @@ function handleClick(evt) {
 
 /** showLoadingView()
  *
- * Wipe the current Jeopardy board, show the loading spinner,
- * and update the button used to fetch data.
+ * Using the loading spinner only to show that data is being loaded from the server.
+ * Otherwise have split out the reload game table into a separate button click.
  *
  * https://getbootstrap.com/docs/4.4/components/spinners/
  *
@@ -256,8 +291,9 @@ function showLoadingView() {
     loadBtn.html(spinnerHtml);
 };
 
-/** Remove the loading spinner and update the button used to fetch data. */
-
+/** hideLoadingView()
+ * Remove the loading spinner and update the button used to fetch data. 
+ */
 function hideLoadingView() {
     // get the load button
     // unset disable click
@@ -271,22 +307,30 @@ function hideLoadingView() {
 
 /** setupAndStart()
  *
- * Start game:
+ * Start off with some previously downloaded categories, to get the game starting sooner.
  *
- * - get random category Ids
- * - get data for each category
- * - create HTML table
  */
 
 async function setupAndStart() {
-    // get categories
-    // for each category
-    //     get clues
-    // fill html table
 
     setGlobalCategories(sampleCategories);
 
     fillTable();
+
+    /** On page load, add event handler for clicking clues */
+    $(document.body).on('click', handleClick);
+
+    /** On click of start / restart button, set up game. */
+    $('#restartButton').on("click", () => {
+        fillTable();
+    });
+
+    /** on click of getAPIDataButton, get data from the server. */
+    $('#getAPIDataButton').on("click", async () => {
+        showLoadingView();
+        setGlobalCategories(await getAPIData());
+        hideLoadingView();
+    });
 };
 
 // ensures one place of entry to assign global variable for categories and related set of variables
@@ -298,10 +342,6 @@ function setGlobalCategories(newCats) {
     });
     catIDs = categories.map(c => c.id);
 }
-
-
-/** On page load, add event handler for clicking clues */
-$(document.body).on('click', handleClick);
 
 
 /** loadFavicon()
@@ -359,12 +399,14 @@ function loadJS(url, runOnLoad) {
     $body.appendChild($script);
 };
 
+// The project requirement was not to alter the index.html file
+// So I played around with learning to dynamically load various additional js and css files to augment the functionality.
 loadFavicon("favicon.ico");
 loadJS("sampledata.js");
 loadJS("apphtml.js");
 loadCSS("https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css");
 loadJS("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js");
-//loadJS("https://code.jquery.com/qunit/qunit-2.11.3.js");
 loadJS('app.js', () => {
+    // left this to test executing startup funcitons in dynamically loaded js files.
     appjs_postload();
 });
