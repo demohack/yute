@@ -218,7 +218,7 @@ function handleClick(evt) {
         let cover = $(`#${key} .cover`);
         cover.toggleClass("hide", true);
 
-        if ($("#useModalCheckBox").prop("checked") == "checked") {
+        if ($("#useModalCheckBox").prop("checked") || ($("#useModalCheckBox").prop("checked") == "checked")) {
             let modalBox = $("#modalBox");
             modalBox.attr("key", key);
 
