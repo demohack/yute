@@ -6,8 +6,8 @@ const BASE_URL = "https://hack-or-snooze-v3.herokuapp.com";
  */
 
 class StoryList {
-  constructor(stories) {
-    this.stories = stories;
+  constructor() {
+    this.stories = new Map();
   }
 
   /**
@@ -31,7 +31,14 @@ class StoryList {
     const stories = response.data.stories.map(story => new Story(story));
 
     // build an instance of our own class using the new array of stories
-    const storyList = new StoryList(stories);
+    const storyList = new StoryList();
+
+    if (stories) {
+      stories.forEach(function (s) {
+        storyList.stories.set(s.storyId, new Story(s));
+      });
+    }
+
     return storyList;
   }
 
@@ -44,12 +51,77 @@ class StoryList {
    */
 
   async addStory(user, newStory) {
-    // TODO - Implement this functions!
-    // this function should return the newly created story so it can be used in
+    // this function returns the newly created story so it can be used in
     // the script.js file where it will be appended to the DOM
+    const token = user.loginToken;
+    const story = newStory;
+    newStory = null;
+
+    const response = await axios.post(`${BASE_URL}/stories`, {
+      token,
+      story
+    }).then(res => {
+      console.log("post story succeeded");
+
+      newStory = new Story(res.data.story);
+      this.stories.set(newStory.storyId, newStory);
+      user.ownStories.set(newStory.storyId, newStory);
+
+    }).catch(err => {
+      console.log("post story failed: ", err);
+      if (err.response) {
+        console.log("client received an error response (5xx, 4xx): ", err.response.status);
+        // client received an error response (5xx, 4xx)
+      } else if (err.request) {
+        console.log("client never received a response, or request never left");
+        // client never received a response, or request never left
+      } else {
+        console.log("other error");
+        // anything else
+      }
+    });
+
+    return newStory;
   }
 
-  // TODO: deleteStory()
+  async removeStory(user, storyId) {
+    // removes a user's own story
+
+    const url = `${BASE_URL}/stories/${storyId}`;
+    const method = "DELETE";
+    const data = {
+      token: user.loginToken
+    };
+
+    let retval = false;
+
+    const response = await axios({
+      url,
+      method,
+      data
+    }).then(res => {
+      console.log("delete story succeeded");
+
+      if (this.stories.has(storyId)) this.stories.delete(storyId);
+
+      retval = true;
+
+    }).catch(err => {
+      console.log("delete story failed: ", err);
+      if (err.response) {
+        console.log("client received an error response (5xx, 4xx): ", err.response.status);
+        // client received an error response (5xx, 4xx)
+      } else if (err.request) {
+        console.log("client never received a response, or request never left");
+        // client never received a response, or request never left
+      } else {
+        console.log("other error");
+        // anything else
+      }
+    });
+
+    return retval;
+  }
 
   // TODO: editStory()
 }
@@ -69,8 +141,8 @@ class User {
 
     // these are all set to defaults, not passed in by the constructor
     this.loginToken = "";
-    this.favorites = [];
-    this.ownStories = [];
+    this.favorites = new Map();
+    this.ownStories = new Map();
   }
 
   /* Create and return a new user.
@@ -94,7 +166,9 @@ class User {
     // build a new User instance from the API response
     const newUser = new User(response.data.user);
 
-    // attach the token to the newUser instance for convenience
+    // assert: new user has no favorites and no ownStories
+
+    // attach the token to the newUser instance for convenience // JSON Web Token (JWT)
     newUser.loginToken = response.data.token;
 
     return newUser;
@@ -120,9 +194,15 @@ class User {
       // build a new User instance from the API response
       existingUser = new User(res.data.user);
 
-      // instantiate Story instances for the user's favorites and ownStories
-      existingUser.favorites = res.data.user.favorites.map(s => new Story(s));
-      existingUser.ownStories = res.data.user.stories.map(s => new Story(s));
+      // on login, we want to instantiate Story instances for the user's favorites and ownStories
+
+      res.data.user.favorites.forEach(function (s) {
+        existingUser.favorites.set(s.storyId, new Story(s));
+      });
+
+      res.data.user.stories.forEach(function (s) {
+        existingUser.ownStories.set(s.storyId, new Story(s));
+      });
 
       // attach the token to the newUser instance for convenience
       existingUser.loginToken = res.data.token;
@@ -167,9 +247,16 @@ class User {
     // attach the token to the newUser instance for convenience
     existingUser.loginToken = token;
 
-    // instantiate Story instances for the user's favorites and ownStories
-    existingUser.favorites = response.data.user.favorites.map(s => new Story(s));
-    existingUser.ownStories = response.data.user.stories.map(s => new Story(s));
+    // instantiate Story instances for the user's favorites, store in hashmap
+    response.data.user.favorites.forEach(function (s) {
+      existingUser.favorites.set(s.storyId, new Story(s));
+    });
+
+    // instantiate Story instances for the user's ownStories
+    response.data.user.stories.forEach(function (s) {
+      existingUser.ownStories.set(s.storyId, new Story(s));
+    });
+
     return existingUser;
   }
 
@@ -177,6 +264,75 @@ class User {
   // TODO: delete() - delete user
 
   // TODO: edit() - edit user information
+
+  async addFavorite(story) {
+    const url = `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`;
+    const method = "POST";
+    const data = {
+      token: this.loginToken
+    };
+
+    const response = await axios({
+      url,
+      method,
+      data
+    }).then(res => {
+      console.log("post favorite story succeeded");
+
+      this.favorites.set(story.storyId, story);
+
+    }).catch(err => {
+      console.log("post favorite story failed: ", err);
+      if (err.response) {
+        console.log("client received an error response (5xx, 4xx): ", err.response.status);
+        // client received an error response (5xx, 4xx)
+      } else if (err.request) {
+        console.log("client never received a response, or request never left");
+        // client never received a response, or request never left
+      } else {
+        console.log("other error");
+        // anything else
+      }
+    });
+
+    return this;
+  }
+
+  async removeFavorite(storyId) {
+    const url = `${BASE_URL}/users/${this.username}/favorites/${storyId}`;
+    const method = "DELETE";
+    const data = {
+      token: this.loginToken
+    };
+
+    let retval = false;
+
+    const response = await axios({
+      url,
+      method,
+      data
+    }).then(res => {
+      console.log("delete favorite story succeeded");
+
+      this.favorites.delete(storyId);
+      retval = true;
+
+    }).catch(err => {
+      console.log("delete favorite story failed: ", err);
+      if (err.response) {
+        console.log("client received an error response (5xx, 4xx): ", err.response.status);
+        // client received an error response (5xx, 4xx)
+      } else if (err.request) {
+        console.log("client never received a response, or request never left");
+        // client never received a response, or request never left
+      } else {
+        console.log("other error");
+        // anything else
+      }
+    });
+
+    return this;
+  }
 }
 
 /**

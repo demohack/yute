@@ -71,7 +71,7 @@ form {
   margin: 8px 18px 0;
 }
 
-form > * {
+form>* {
   margin: 10px 0;
 }
 
@@ -98,7 +98,7 @@ form input:focus {
   box-shadow: 0 0 4px 1px darkgray;
 }
 
-form > button {
+form>button {
   width: 4rem;
   margin: 5px 0px 15px 65px;
   border: none;
@@ -111,11 +111,11 @@ form > button {
   transition: all 0.15s;
 }
 
-form > button:hover {
+form>button:hover {
   background-color: dimgray;
 }
 
-form > hr {
+form>hr {
   margin: 0;
   border: 0.5px solid lightgray;
 }
@@ -142,7 +142,7 @@ form > hr {
   margin: 20px 5px;
 }
 
-.articles-list > li {
+.articles-list>li {
   color: gray;
   font-size: 0.8rem;
   margin: 10px 0;
@@ -165,7 +165,7 @@ form > hr {
   color: darkblue;
 }
 
-.article-link > strong {
+.article-link>strong {
   color: black;
   font-size: 0.85rem;
   font-weight: normal;
@@ -211,7 +211,7 @@ form > hr {
   font-size: 0.9rem;
 }
 
-#user-profile > * {
+#user-profile>* {
   margin: 10px 0;
 }
 
@@ -229,4 +229,68 @@ form > hr {
     max-width: 900px;
     margin: 8px auto;
   }
+}
+
+.button-star-checked {
+  background-color: transparent;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url("star2-24x24.png");
+  border: 0;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.button-star {
+  background-color: transparent;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url("star1-24x24.png");
+  border: 0;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.button-trash-false {
+  background-color: transparent;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url("trash1-18x24.png");
+  border: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.button-trash-true {
+  background-color: transparent;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url("trash2-18x24.png");
+  border: 0;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.button-edit-false {
+  background-color: transparent;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url("edit1-24x24.png");
+  border: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.button-edit-true {
+  background-color: transparent;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url("edit2-24x24.png");
+  border: 0;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
 }
