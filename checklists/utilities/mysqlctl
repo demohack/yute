@@ -1,0 +1,38 @@
+#!/bin/sh
+#
+# mysql control script designed to allow an easy command line interface
+# 
+#
+ACMD="$1"
+ARGV="$@"
+#
+# |||||||||||||||||||| START CONFIGURATION SECTION  ||||||||||||||||||||
+# --------------------                              --------------------
+# 
+
+MYSQLDSAFE='/usr/bin/mysqld_safe'
+MYSQLADMIN='/usr/bin/mysqladmin'
+
+#
+# pick up any necessary environment variables
+if test -f /usr/sbin/envvars; then
+  . /usr/sbin/envvars
+fi
+# --------------------                              --------------------
+# ||||||||||||||||||||   END CONFIGURATION SECTION  ||||||||||||||||||||
+
+ERROR=0
+
+case $ACMD in
+start)
+    $MYSQLDSAFE &
+    ERROR=$?
+    ;;
+stop)
+    $MYSQLADMIN -u root -p shutdown
+    ERROR=$?
+    ;;
+esac
+
+exit $ERROR
+
