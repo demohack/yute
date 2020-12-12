@@ -2,8 +2,10 @@ $(async function () {
   // cache some selectors we'll be using quite a bit
   const $allStoriesList = $("#all-articles-list");
   const $submitForm = $("#submit-form");
+  const $editArticleForm = $("#edit-article-form");
   const $loginForm = $("#login-form");
   const $createAccountForm = $("#create-account-form");
+  const $updateAccountForm = $("#update-account-form");
   const $navLogin = $("#nav-login");
   const $navLogOut = $("#nav-logout");
 
@@ -80,6 +82,13 @@ $(async function () {
     $allStoriesList.toggle();
   });
 
+  $("#nav-user-profile").on("click", function () {
+    console.log("nav-user-profile clicked");
+    $("#user-profile").toggleClass("hidden");
+    // $("#update-account-form").toggleClass("hidden", true);
+    $("#view-account-info").toggleClass("hidden");
+  });
+
   $("#nav-submit").on("click", function () {
     console.log("submit button clicked");
     $submitForm.toggle();
@@ -87,13 +96,11 @@ $(async function () {
 
   $("#nav-submitted").on("click", function () {
     console.log("show submitted articles");
-
     generateStories(currentUser, currentUser.ownStories);
   });
 
   $("#nav-favorites").on("click", function () {
     console.log("show favorited articles");
-
     generateStories(currentUser, currentUser.favorites);
   });
 
@@ -102,11 +109,26 @@ $(async function () {
    */
 
   $("body").on("click", "#nav-all", async function () {
-    hideElements();
-    // get an instance of StoryList
+    console.log("show all articles");
     storyList = await StoryList.getStories();
     generateStories(currentUser, storyList.stories);
-    $allStoriesList.show();
+  });
+
+  $("#view-account-info button").on("click", function (e) {
+    e.preventDefault();
+    console.log("view-account-info button clicked");
+    $submitForm.toggle();
+    submitStory();
+  });
+
+  $("#update-account-form button").on("click", function (e) {
+    e.preventDefault();
+    console.log("update-account-form button clicked");
+    if (updateUser()) {
+
+    } else {
+      console.log("update-account-form failed to update user");
+    }
   });
 
   /**
@@ -114,9 +136,8 @@ $(async function () {
    */
 
   $("#submit-form button").on("click", function (e) {
-    console.log("submitted article");
+    console.log("submitted new article");
     e.preventDefault();
-
     $submitForm.toggle();
     submitStory();
   });
@@ -151,6 +172,36 @@ $(async function () {
     $(".button-edit-true").on("click", async function (e) {
       editBtnClick(e);
     });
+  }
+
+  /**
+   * Event handler for submitting an update to a story
+   */
+
+  $("#edit-article-form button").on("click", function (e) {
+    console.log("submitted update to article");
+    e.preventDefault();
+    $editArticleForm.toggle();
+    submitUpdateStory();
+  });
+
+  async function submitUpdateStory() {
+    // grab all the info from the form
+    const title = $("#edit-title").val();
+    const author = $("#edit-author").val();
+    const url = $("#edit-url").val();
+    const storyId = $("#edit-storyid").val();
+
+    const storyObject = await storyList.editStory(currentUser, storyId, {
+      title,
+      author,
+      url
+    });
+
+    // update the story
+    $(`#${storyId} .article-author`).html(`by ${storyObject.author}`);
+    $(`#${storyId} .article-title`).html(`<strong>${storyObject.title}</strong>`);
+    $(`#${storyId} .article-link`).attr("href", storyObject.url);
   }
 
   /**
@@ -276,12 +327,15 @@ $(async function () {
     const storyId = e.target.parentElement.id;
     if (!storyId) return;
 
-    // let retval = await storyList.removeStory(currentUser, storyId);
-    // if (retval) {
-    //   e.target.parentElement.remove();
-    //   if (currentUser.favorites.has(storyId)) currentUser.favorites.delete(storyId);
-    //   if (currentUser.ownStories.has(storyId)) currentUser.ownStories.delete(storyId);
-    // }
+    // prefill the edit article form
+    let story = storyList.stories.get(storyId);
+    $("#edit-storyid").val(storyId);
+    $("#edit-author").val(story.author);
+    $("#edit-title").val(story.title);
+    $("#edit-url").val(story.url);
+
+    // show the edit article form
+    $editArticleForm.show();
   }
 
   /**
@@ -337,6 +391,7 @@ $(async function () {
   function hideElements() {
     const elementsArr = [
       $submitForm,
+      $editArticleForm,
       $allStoriesList,
       $loginForm,
       $createAccountForm
@@ -379,6 +434,7 @@ $(async function () {
 
     $("#profile-name").html(`Name: ${user.name}`);
     $("#profile-username").html(`Username: ${user.username}`);
-    $("#profile-account-date").html(`Account Created: ${user.createdAt}`);
+    $("#profile-account-created-date").html(`Account Created: ${user.createdAt}`);
+    $("#profile-account-updated-date").html(`Account Updated: ${user.updatedAt}`);
   }
 });

@@ -167,6 +167,9 @@ todo today:
 
 2020-12-08 4:18 pm
 - finally fixed the problem of not being able to delete own stories
-- had the help of Kelvin
-- problem was I was passing in an invalid token value, and error code wasn't catching it
+- I was passing in an invalid token value, and error code wasn't catching it
 
+2020-12-12 6:47 am
+Fix:
+x Hide the user info box. It appears regardless of state of user login: on list of stories without logging in, on login page, and after login.
+- Show the user info box, and hide the stories, when the user's name is clicked

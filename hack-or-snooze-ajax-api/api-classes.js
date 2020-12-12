@@ -124,6 +124,45 @@ class StoryList {
   }
 
   // TODO: editStory()
+  async editStory(user, storyId, story) {
+    // removes a user's own story
+
+    const url = `${BASE_URL}/stories/${storyId}`;
+    const method = "PATCH";
+    const data = {
+      token: user.loginToken,
+      story
+    };
+
+    let newStory = null;
+
+    const response = await axios({
+      url,
+      method,
+      data
+    }).then(res => {
+      console.log("update story succeeded");
+
+      newStory = new Story(res.data.story);
+      this.stories.set(newStory.storyId, newStory);
+      user.ownStories.set(newStory.storyId, newStory);
+
+    }).catch(err => {
+      console.log("update story failed: ", err);
+      if (err.response) {
+        console.log("client received an error response (5xx, 4xx): ", err.response.status);
+        // client received an error response (5xx, 4xx)
+      } else if (err.request) {
+        console.log("client never received a response, or request never left");
+        // client never received a response, or request never left
+      } else {
+        console.log("other error");
+        // anything else
+      }
+    });
+
+    return newStory;
+  }
 }
 
 
