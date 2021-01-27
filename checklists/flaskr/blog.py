@@ -12,7 +12,6 @@ from flaskr.db import get_db
 
 bp = Blueprint("blog", __name__)
 
-
 @bp.route("/")
 def index():
     """Show all the posts, most recent first."""
