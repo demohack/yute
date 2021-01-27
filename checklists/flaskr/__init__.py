@@ -2,7 +2,6 @@ import os
 
 from flask import Flask
 
-
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""
     app = Flask(__name__, instance_relative_config=True)
@@ -32,14 +31,13 @@ def create_app(test_config=None):
 
     # register the database commands
     from flaskr import db
-
     db.init_app(app)
 
     # apply the blueprints to the app
-    from flaskr import auth, blog
-
+    from flaskr import auth, blog, list
     app.register_blueprint(auth.bp)
     app.register_blueprint(blog.bp)
+    app.register_blueprint(list.bp)
 
     # make url_for('index') == url_for('blog.index')
     # in another app, you might define a separate main index here with

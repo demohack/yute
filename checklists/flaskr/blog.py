@@ -11,7 +11,7 @@ from flaskr.auth import login_required
 from flaskr.db import get_db
 
 bp = Blueprint("blog", __name__)
-
+# A Blueprint is a way to organize a group of related views and other code.
 
 @bp.route("/")
 def index():
@@ -23,7 +23,7 @@ def index():
         " ORDER BY created DESC"
     ).fetchall()
     return render_template("blog/index.html", posts=posts)
-
+# TODO: JS refactoring - only return the HTML code. The query is not done up front.
 
 def get_post(id, check_author=True):
     """Get a post and its author by id.
@@ -57,7 +57,7 @@ def get_post(id, check_author=True):
     return post
 
 
-@bp.route("/create", methods=("GET", "POST"))
+@bp.route("/blog/create", methods=("GET", "POST"))
 @login_required
 def create():
     """Create a new post for the current user."""
@@ -83,7 +83,7 @@ def create():
     return render_template("blog/create.html")
 
 
-@bp.route("/<int:id>/update", methods=("GET", "POST"))
+@bp.route("/blog/<int:id>/update", methods=("GET", "POST"))
 @login_required
 def update(id):
     """Update a post if the current user is the author."""
@@ -110,7 +110,7 @@ def update(id):
     return render_template("blog/update.html", post=post)
 
 
-@bp.route("/<int:id>/delete", methods=("POST",))
+@bp.route("/blog/<int:id>/delete", methods=("POST",))
 @login_required
 def delete(id):
     """Delete a post.
