@@ -6,6 +6,23 @@ today's goals:
 
 I don't quite understand db.py.
 
+assumes: 
+- User logs in
+
+steps:
+- clicks on create checklist menu item
+- create checklist screen appears
+    a checklist is a document, that can be collaboratively edited
+- by default, user who creates the document owns the document
+- owner of document determines who has access to view, edit, delete
+
+assumes:
+- document management functionality
+- documents can be grouped into folders / containers
+- documents incldue messaging capability
+- documents can be published, or unpublished
+- documents can be versioned
+
 
 
 ### 2020-12-26 instant messaging
