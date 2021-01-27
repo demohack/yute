@@ -1,4 +1,10 @@
-### 2020-12-26 creating a checklist
+### 2021-01-07 creating a checklist
+
+today's goals:
+- modify flask to javascript front end
+- read the flask code, get familar
+
+I don't quite understand db.py.
 
 assumes: 
 - User logs in

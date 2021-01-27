@@ -25,6 +25,7 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    # example of simple route
     @app.route("/hello")
     def hello():
         return "Hello, World!"

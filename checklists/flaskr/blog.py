@@ -11,7 +11,10 @@ from flaskr.auth import login_required
 from flaskr.db import get_db
 
 bp = Blueprint("blog", __name__)
+<<<<<<< HEAD
 # A Blueprint is a way to organize a group of related views and other code.
+=======
+>>>>>>> eb7831cf273a445482a53dce25807b38774a2001
 
 @bp.route("/")
 def index():

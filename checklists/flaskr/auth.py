@@ -14,7 +14,10 @@ from werkzeug.security import generate_password_hash
 from flaskr.db import get_db
 
 bp = Blueprint("auth", __name__, url_prefix="/auth")
+<<<<<<< HEAD
 # Like the application object, the blueprint needs to know where it’s defined, so __name__ is passed as the second argument.
+=======
+>>>>>>> eb7831cf273a445482a53dce25807b38774a2001
 
 def login_required(view):
     """View decorator that redirects anonymous users to the login page."""
