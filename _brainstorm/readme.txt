@@ -1,3 +1,141 @@
+daily journal
+
+### 2021-02-14 03:00 am
+
+# alter table
+alter table t_user add column role text;
+
+# insert data
+insert into t_user (name, age, email) values ('user_name', 45, 'user_name@domain.com');
+
+# create table
+create table t_user (name text not null, age int, email text);
+
+# grant user access to database
+grant all on database testdb to user_name;
+
+# switch database in psql
+https://www.xspdf.com/resolution/50841341.html
+
+\C db_name
+\connect db_name
+
+# create user
+https://www.postgresql.org/docs/8.0/sql-createuser.html
+
+create user test password 'test2hsAQan39';
+
+# create database
+https://www.postgresqltutorial.com/postgresql-create-database/
+
+create database testdb with owner test;
+
+# list Users
+https://www.postgresqltutorial.com/postgresql-list-users/
+
+\du
+\du+
+
+# list databases
+https://www.postgresqltutorial.com/postgresql-show-databases/
+
+\l
+\l+
+
+# list tables
+https://www.postgresqltutorial.com/postgresql-show-tables/
+
+\dt 
+\dt+
+
+
+
+# different ways of connecting to PG
+https://node-postgres.com/features/connecting
+
+- sockets
+- connection URI
+- connection pooling
+- environmental variables
+
+# viewing commit history
+https://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History
+
+# initializing node project folder with npm install
+extract / copy over node project
+open terminal
+cd to project folder, e.g. C:\Users\user_name\sb\local\express-pg-intro-demo\simple
+
+# this will create the node_modules folder and download any npm package dependencies
+run: npm install
+
+
+# use dotenv to securely store passwords, ip addresses in a separate file
+
+https://codingsans.com/blog/node-config-best-practices
+https://help.cloud66.com/node/how-to-guides/deployment/application-settings-node.html
+https://stackabuse.com/managing-environment-variables-in-node-js-with-dotenv/
+https://stackoverflow.com/questions/52580754/nodejs-how-to-securely-store-ip-username-and-password-of-a-database
+https://stackabuse.com/managing-environment-variables-in-node-js-with-dotenv/
+https://dev.to/getd/how-to-manage-secrets-and-configs-using-dotenv-in-node-js-and-docker-2214
+https://medium.com/@victor.valencia.rico/environment-variables-with-node-js-1f84fa26f316
+https://git-scm.com/docs/gitignore
+
+# node & postgres
+
+https://stackabuse.com/using-postgresql-with-nodejs-and-node-postgres/
+https://node-postgres.com/features/connecting
+
+run: npm install --save dotenv
+
+add .env to .gitignore
+create a file named .env, store at root project folder, following content
+
+HOST=localhost
+PORT=3000
+PGDB_HOST=localhost
+PGDB_PORT=5432
+PGDB_DATABASE=local
+PGDB_USER=user_name
+PGDB_PASSWORD=X
+
+add to top of code file: 
+
+require('dotenv').config()
+
+const db = new Client({
+   host: process.env.PGDB_HOST,
+   port: process.env.PGDB_PORT,
+   database: process.env.PGDB_DATABASE,
+   user: process.env.PGDB_USER,
+   password: process.env.PGDB_PASSWORD,
+});
+
+
+
+### 2021-02-13
+
+installed postgresql 13.2.1 via chocolatey, and 12.6.1 via cygwin
+
+start user: psql -U user_name db_name
+       e.g. psql -U user_name local
+
+change password: ALTER ROLE user_name WITH PASSWORD 'X';
+
+
+#upgrade node on windows through installer
+https://nodejs.org/en/download/
+
+
+# upgrade chocolatey
+# run in windows powershell admin mode
+
+> chocolatey upgrade chocolatey
+
+# C:\ProgramData\chocolatey\logs\chocolatey.log
+
+
+
 ### 01-30 07:23
 
 Use hooks for state, not local state in class objects.
