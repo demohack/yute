@@ -1,5 +1,24 @@
 daily journal
 
+### 2021-03-05 05:58 am
+
+beautify selection : ctrl shift i
+beutify file : ctrl alt i
+
+
+connecting to postgres, change password for test
+
+# create new node package.json file and default yes
+node-init --yes
+
+### 2021-02-23 04:48 pm
+
+git add .
+git commit -m ""
+git push
+
+git pull
+
 ### 2021-02-14 03:00 am
 
 # alter table
@@ -10,6 +29,9 @@ insert into t_user (name, age, email) values ('user_name', 45, 'user_name@domain
 
 # create table
 create table t_user (name text not null, age int, email text);
+
+# change user password
+ALTER USER davide WITH PASSWORD 'hu8jmn3';
 
 # grant user access to database
 grant all on database testdb to user_name;
@@ -48,6 +70,12 @@ https://www.postgresqltutorial.com/postgresql-show-tables/
 \dt 
 \dt+
 
+
+# connect to postgres with database name same as username
+psql -U postgres -h localhost -p 5432
+
+# connect to postgres with database specified
+psql -d local -U test -h localhost -p 5432
 
 
 # different ways of connecting to PG
