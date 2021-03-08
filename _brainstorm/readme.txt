@@ -1,5 +1,14 @@
 daily journal
 
+### 2021-03-06 08:33 am
+
+# start a node project
+npm init -y
+
+# install a package
+npm install axios
+
+
 ### 2021-03-05 05:58 am
 
 beautify selection : ctrl shift i
