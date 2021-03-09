@@ -11,44 +11,34 @@ let url4 = "http://numbersapi.com/29/trivia?json";
 
 let urlrandom = "http://numbersapi.com/random?min=10&max=20&json";
 
-axios
-    .get(url29)
-    .then(p29 => {
+async function getNumbers() {
+    try {
+
+        let p29 = await axios.get(url29);
         console.log(`random fact on ${p29.data.number}: ${p29.data.text}`);
 
-        return axios.get(urlbatch)
-    })
-    .then(pbatch => {
+        let pbatch = await axios.get(urlbatch);
         console.log(`multiple numbers on single request: ${urlbatch}`);
         for (const key in pbatch.data) {
             console.log(`${key} : ${pbatch.data[key]}`);
         }
 
-        return axios.get(url1);
-    })
-    .then(p1 => {
+        let p1 = await axios.get(url1);
+        let p2 = await axios.get(url2);
+        let p3 = await axios.get(url3);
+        let p4 = await axios.get(url4);
+
         console.log(`first random fact on ${p1.data.number}: ${p1.data.text}`);
+        console.log(`second random fact on ${p2.data.number}: ${p2.data.text}`);
+        console.log(`third random fact on ${p3.data.number}: ${p3.data.text}`);
+        console.log(`fourth random fact on ${p4.data.number}: ${p4.data.text}`);
 
-        return axios.get(url2);
-    })
-    .then(p1 => {
-        console.log(`second random fact on ${p1.data.number}: ${p1.data.text}`);
-
-        return axios.get(url3);
-    })
-    .then(p1 => {
-        console.log(`third random fact on ${p1.data.number}: ${p1.data.text}`);
-
-        return axios.get(url4);
-    })
-    .then(p1 => {
-        console.log(`fourth random fact on ${p1.data.number}: ${p1.data.text}`);
-
-        return axios.get(urlrandom);
-    })
-    .then(prandom => {
+        let prandom = await axios.get(urlrandom);
         console.log(`random fact on random # ${prandom.data.number}: ${prandom.data.text}`);
-    })
-        .catch(err => {
+
+    } catch {
         console.log("there was a problem");
-    })
+    }
+}
+
+getNumbers();
