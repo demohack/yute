@@ -1,5 +1,6 @@
 daily journal
 
+<<<<<<< Updated upstream
 ### 2021-03-06 08:33 am
 
 # start a node project
@@ -28,6 +29,19 @@ git push
 
 git pull
 
+||||||| constructed merge base
+=======
+### 2021-02-23 6:02 pm
+https://www.postgresql.org/docs/9.5/app-pg-ctl.html
+
+pg_ctl start
+pg_ctl stop
+pg_ctl restart
+pg_ctl status
+pg_ctl --version
+
+
+>>>>>>> Stashed changes
 ### 2021-02-14 03:00 am
 
 # alter table
@@ -158,6 +172,7 @@ start user: psql -U user_name db_name
        e.g. psql -U user_name local
 
 change password: ALTER ROLE user_name WITH PASSWORD 'X';
+
 
 
 #upgrade node on windows through installer
