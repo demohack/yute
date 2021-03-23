@@ -1,5 +1,14 @@
 daily journal
 
+### 2021-03-23 10:18 am
+
+export PATH=/opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
+set | grep PATH
+python3 -m venv venv
+source venv/bin/activate
+pip install flask-debugtoolbar
+
+
 ### 2021-03-06 08:33 am
 
 # start a node project
