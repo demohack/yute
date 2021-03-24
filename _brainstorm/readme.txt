@@ -8,6 +8,7 @@ python3 -m venv venv
 source venv/bin/activate
 pip install flask-debugtoolbar
 
+deactivate
 
 ### 2021-03-06 08:33 am
 

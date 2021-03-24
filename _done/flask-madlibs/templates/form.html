@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h1>Madlibs</h1>
+  <form action="/story">
+    {% for field in fields %}
+    <p>{{field}}:  
+      <input name="{{field}}">
+    </p>
+    {% endfor %}
+    <button>Go!</button>
+  </form>
+</body>
+</html>
