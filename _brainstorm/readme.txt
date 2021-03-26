@@ -10,6 +10,9 @@ pip install flask-debugtoolbar
 
 deactivate
 
+pip install --upgrade pip setuptools wheel
+
+
 ### 2021-03-06 08:33 am
 
 # start a node project
