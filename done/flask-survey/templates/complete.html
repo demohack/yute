@@ -4,15 +4,11 @@
 
 {% block header %}
 <h>{{ survey.title }}</h>
-<p>{{ survey.instructions }}</p>
 {% endblock %}
 
 {% block content %}
-<form action="/question/0" method="POST">
-    <button>Start!</button>
-</form>
+<h1>Thanks for completing this survey!</h1>
 {% endblock %}
 
 {% block footer %}
-<p>Thank you for taking the survey!</p>
 {% endblock %}

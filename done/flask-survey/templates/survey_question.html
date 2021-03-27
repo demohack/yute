@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}question.survey_title{% endblock %}
+
+{% block header %}
+<h>{{ question.survey_title }}</h>
+<h2>{{ question.question_id + 1 }} of {{ question.num_questions }} : {{ question.question }}</h2>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class=flashes>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+{% endblock %}
+
+{% block content %}
+<form id="form" action="/answer" method="POST">
+    {% for choice in question.choices %}
+    <p><input type="radio" class="choice" name="choice" value="{{ choice }}"> {{ choice }}</p>
+    {% endfor %}
+    </select>
+
+    <input type="hidden" id="question-id" name="question-id" value="{{ question.question_id }}">
+    <input type="hidden" id="saved-choice" name="saved-choice" value="{{ question.choice }}">
+    <input type="hidden" id="next-question-id" name="next-question-id" value="">
+    <input type="hidden" id="num-questions" name="num-questions" value="{{ question.num_questions }}">
+
+    <button id="back" class="btn btn-primary">Back</button>
+    <button id="next" class="btn btn-primary">Next</button>
+    <button id="submit" class="btn btn-success">Submit</button>
+</form>
+{% endblock %}
+
+{% block footer %}
+<p>Thank you for taking the survey!</p>
+{% endblock %}
