@@ -9,7 +9,7 @@ function insertImage(url) {
     $box.append($(t));
 }
 
-async function searchCick() {
+async function searchClick() {
     let userInput = $("#user-input").val();
     let response = await axios.get(
         API_ENDPOINT, {
@@ -30,8 +30,8 @@ function removeClick() {
 }
 $("#user-input").on("keypress", function(e){
     if (e.which == 13) {
-        searchCick();
+        searchClick();
     }
 });
-$("#search-btn").on("click", searchCick);
+$("#search-btn").on("click", searchClick);
 $("#remove-btn").on("click", removeClick);
