@@ -1,5 +1,10 @@
 daily journal
 
+### 2021-03-29 10:24 am
+
+https://lerner.co.il/2014/05/24/turning-postgresql-arrays-rows-unnest/
+
+
 ### 2021-03-23 10:18 am
 
 export PATH=/opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
