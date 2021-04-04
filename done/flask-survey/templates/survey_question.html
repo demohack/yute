@@ -21,7 +21,6 @@
     {% for choice in question.choices %}
     <p><input type="radio" class="choice" name="choice" value="{{ choice }}"> {{ choice }}</p>
     {% endfor %}
-    </select>
 
     <input type="hidden" id="question-id" name="question-id" value="{{ question.question_id }}">
     <input type="hidden" id="saved-choice" name="saved-choice" value="{{ question.choice }}">

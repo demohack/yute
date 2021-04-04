@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Users list{% endblock %}
+
+{% block header %}
+<h>Users list</h>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class=flashes>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+{% endblock %}
+
+{% block content %}
+<ul class=flashes>
+    {% for user in users %}
+    <li><a href="/users/{{ user.id }}">{{ user.id }} : {{ user.full_name }}</a></li>    
+    {% endfor %}
+</ul>
+
+<a id="add_new_user" class="btn btn-success" href="/users/new">New User</a>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

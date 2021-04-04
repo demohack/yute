@@ -1,5 +1,39 @@
 daily journal
 
+### 2021-04-03 10:09 pm
+
+# hide files / folders in visual code explorer
+https://www.donovanbrown.com/post/Hide-folders-in-Visual-Studio-Code-Explorer
+
+# safeguarding passwords in env files
+https://dynaconf.readthedocs.io/en/docs_223/guides/usage.html
+https://itnext.io/start-using-env-for-your-flask-project-and-stop-using-environment-variables-for-development-247dc12468be
+https://medium.com/the-node-js-collection/making-your-node-js-work-everywhere-with-environment-variables-2da8cdf6e786
+https://martin-thoma.com/configuration-files-in-python/#:~:text=configuration%20handling%3A%20cfg_load-,Python%20Configuration%20File,to%20avoid%20uploading%20it%20accidentally.
+
+# configuring sqlalchemy - postgresql connection string
+https://flask-sqlalchemy.palletsprojects.com/en/2.x/config/
+
+SQLALCHEMY_DATABASE_URI
+https://docs.sqlalchemy.org/en/14/core/engines.html#postgresql
+dialect+driver://username:password@host:port/database
+postgresql://scott:tiger@localhost/mydatabase
+mysql://scott:tiger@localhost/mydatabase
+
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost/DBNAME"
+
+POSTGRES = {
+    'user': 'postgres',
+    'pw': 'password',
+    'db': 'my_database',
+    'host': 'localhost',
+    'port': '5432',
+}
+# Use of format_map() function
+https://www.geeksforgeeks.org/python-string-format_map/
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://{user}:{pw}@{host}:{port}/{db}'.format_map(POSTGRES)
+
+
 ### 2021-03-29 10:24 am
 
 https://lerner.co.il/2014/05/24/turning-postgresql-arrays-rows-unnest/
@@ -40,9 +74,7 @@ node-init --yes
 
 ### 2021-02-23 04:48 pm
 
-git add .
-git commit -m ""
-git push
+git add .; git commit -m ""; git push
 
 git pull
 

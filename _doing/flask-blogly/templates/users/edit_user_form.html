@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}User Info{% endblock %}
+
+{% block header %}
+<h>User Info</h>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class=flashes>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+{% endblock %}
+
+{% block content %}
+<form action="/users/delete" method="POST">
+    <p><label for="first_name" class="col-sm-2 col-form-label">First Name</label>
+        <input id="first_name" name="first_name" type="text" class="text" value="{{ user.first_name }}"></p>
+    <p><label for="last_name" class="col-sm-2 col-form-label">Last Name</label>
+        <input id="last_name" name="last_name" type="text" class="text" value="{{ user.last_name }}"></p>
+    <p><label for="image_url" class="col-sm-2 col-form-label">Image Url</label>
+        <input id="image_url" name="image_url" type="text" class="text" value="{{ user.image_url }}"></p>
+
+    <input type="hidden" id="current_state" name="current_state" value="{{ current_state }}">
+    <input type="hidden" id="next_state" name="next_state" value="{{ next_state }}">
+    
+    <button id="submit" class="btn btn-primary">Submit</button>
+    <button id="edit" class="btn btn-secondary">Edit</button>
+    <button id="delete" class="btn btn-danger">Delete</button>
+    <button id="cancel" class="btn btn-secondary">Cancel</button>
+</form>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
