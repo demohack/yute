@@ -1,6 +1,6 @@
 """Models for Blogly."""
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import func
+from sqlalchemy import func, ForeignKey
 
 db = SQLAlchemy()
 
@@ -31,6 +31,7 @@ class User(db.Model):
     image_url = db.Column(db.Text,
                      nullable=True,
                      unique=False)
+    posts = relationship("Post")
 
     def get_full_name(self):
         """Return full name of user."""
@@ -68,6 +69,7 @@ class Post(db.Model):
                      unique=False)
     user_id = db.Column(db.Integer,
                      nullable=True,
+                     ForeignKey('users.id'),
                      unique=False)
     recipient_id = db.Column(db.Integer,
                      nullable=True,
