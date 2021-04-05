@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}User Info{% endblock %}
+
+{% block csslinks %}
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block header %}
+<h>User Info</h>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class=flashes>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+{% endblock %}
+
+{% block content %}
+<form id="form" action="/users/{{ user.id }}/edit" method="POST">
+    <p><label for="first_name" class="col-sm-2 col-form-label">First Name</label>
+        <input id="first_name" name="first_name" type="text" class="text" value="{{ user.first_name }}"></p>
+    <p><label for="last_name" class="col-sm-2 col-form-label">Last Name</label>
+        <input id="last_name" name="last_name" type="text" class="text" value="{{ user.last_name }}"></p>
+    <p><label for="image_url" class="col-sm-2 col-form-label">Image Url</label>
+        <input id="image_url" name="image_url" type="text" class="text" value="{{ user.image_url }}"></p>
+
+    <input type="hidden" id="init_user_id" name="init_user_id" value="{{ user.id }}">
+    <input type="hidden" id="init_first_name" name="init_first_name" value="{{ user.first_name }}">
+    <input type="hidden" id="init_last_name" name="init_last_name" value="{{ user.last_name }}">
+    <input type="hidden" id="init_image_url" name="init_image_url" value="{{ user.image_url }}">
+    
+    <input type="hidden" id="edit_mode" name="edit_mode" value="{{ state }}">
+    <label class="checkbox-inline">
+        <input id="toggle-edit-mode" type="checkbox" checked data-toggle="toggle"> <div id="toggle-edit-text">Edit Mode</div>
+    </label>
+
+    <button id="submit" class="btn btn-primary">Submit</button>
+    <button id="delete" class="btn btn-danger">Delete</button>
+    <button id="cancel" class="btn btn-secondary">Cancel</button>
+</form>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block scriptlinks %}
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="{{ url_for('static', filename='edit_user_form.js') }}"></script>
+{% endblock %}

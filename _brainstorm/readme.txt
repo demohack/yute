@@ -1,5 +1,19 @@
 daily journal
 
+
+### 2021-04-05 10:32 am
+
+TODO: create .env file
+# POSTGRESQL ENVIRONMENTAL VARIABLES
+PGDRIVER=postgresql
+PGHOST=localhost
+PGHOSTADDR=127.0.0.1
+PGPORT=5432
+PGDATABASE=sb22
+PGUSER=yu
+PGPASSWORD=secretpassword
+
+
 ### 2021-04-03 10:09 pm
 
 # hide files / folders in visual code explorer
