@@ -7,6 +7,22 @@ https://www.donovanbrown.com/post/Hide-folders-in-Visual-Studio-Code-Explorer
 
 # safeguarding passwords in env files
 https://dynaconf.readthedocs.io/en/docs_223/guides/usage.html
+
+$ pip install dynaconf
+
+from some.db import Client
+
+from dynaconf import settings
+
+conn = Client(
+    username=settings.USERNAME,             # attribute style access
+    password=settings.get('PASSWORD'),      # dict get style access
+    port=settings['PORT'],                  # dict item style access
+    timeout=settings.as_int('TIMEOUT'),     # Forcing casting if needed
+    host=settings.get('HOST', 'localhost')  # Providing defaults
+)
+
+
 https://itnext.io/start-using-env-for-your-flask-project-and-stop-using-environment-variables-for-development-247dc12468be
 https://medium.com/the-node-js-collection/making-your-node-js-work-everywhere-with-environment-variables-2da8cdf6e786
 https://martin-thoma.com/configuration-files-in-python/#:~:text=configuration%20handling%3A%20cfg_load-,Python%20Configuration%20File,to%20avoid%20uploading%20it%20accidentally.
@@ -33,6 +49,8 @@ POSTGRES = {
 https://www.geeksforgeeks.org/python-string-format_map/
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://{user}:{pw}@{host}:{port}/{db}'.format_map(POSTGRES)
 
+# Migrate / Manager for database migrations and upgrades
+https://blog.theodo.com/2017/03/developping-a-flask-web-app-with-a-postresql-database-making-all-the-possible-errors/
 
 ### 2021-03-29 10:24 am
 

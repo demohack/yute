@@ -2,6 +2,10 @@
 
 {% block title %}User Info{% endblock %}
 
+{% block csslinks %}
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+{% endblock %}
+
 {% block header %}
 <h>User Info</h>
 {% with messages = get_flashed_messages() %}
@@ -16,7 +20,7 @@
 {% endblock %}
 
 {% block content %}
-<form action="/users/delete" method="POST">
+<form id="form" action="/users/{{ user.id }}/delete" method="POST">
     <p><label for="first_name" class="col-sm-2 col-form-label">First Name</label>
         <input id="first_name" name="first_name" type="text" class="text" value="{{ user.first_name }}"></p>
     <p><label for="last_name" class="col-sm-2 col-form-label">Last Name</label>
@@ -24,11 +28,18 @@
     <p><label for="image_url" class="col-sm-2 col-form-label">Image Url</label>
         <input id="image_url" name="image_url" type="text" class="text" value="{{ user.image_url }}"></p>
 
-    <input type="hidden" id="current_state" name="current_state" value="{{ current_state }}">
-    <input type="hidden" id="next_state" name="next_state" value="{{ next_state }}">
+    <input type="hidden" id="edit_mode" name="edit_mode" value="{{ state }}">
+
+    <input type="hidden" id="init_user_id" name="init_user_id" value="{{ user.id }}">
+    <input type="hidden" id="init_first_name" name="init_first_name" value="{{ user.first_name }}">
+    <input type="hidden" id="init_last_name" name="init_last_name" value="{{ user.last_name }}">
+    <input type="hidden" id="init_image_url" name="init_image_url" value="{{ user.image_url }}">
     
+    <label class="checkbox-inline">
+        <input id="toggle-edit-mode" type="checkbox" checked data-toggle="toggle"> <div id="toggle-edit-text">Edit Mode</div>
+    </label>
+
     <button id="submit" class="btn btn-primary">Submit</button>
-    <button id="edit" class="btn btn-secondary">Edit</button>
     <button id="delete" class="btn btn-danger">Delete</button>
     <button id="cancel" class="btn btn-secondary">Cancel</button>
 </form>
@@ -36,4 +47,9 @@
 {% endblock %}
 
 {% block footer %}
+{% endblock %}
+
+{% block scriptlinks %}
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="{{ url_for('static', filename='edit_user_form.js') }}"></script>
 {% endblock %}

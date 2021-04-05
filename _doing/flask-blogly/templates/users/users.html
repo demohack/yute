@@ -18,7 +18,11 @@
 {% block content %}
 <ul class=flashes>
     {% for user in users %}
-    <li><a href="/users/{{ user.id }}">{{ user.id }} : {{ user.full_name }}</a></li>    
+        <li>
+            {% if user.deleted %}<del>{% endif %}
+            <a href="/users/{{ user.id }}">{{ user.id }} : {{ user.full_name }}</a>
+            {% if user.deleted %}</del>{% endif %}
+        </li>
     {% endfor %}
 </ul>
 

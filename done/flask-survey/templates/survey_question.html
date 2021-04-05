@@ -36,3 +36,7 @@
 {% block footer %}
 <p>Thank you for taking the survey!</p>
 {% endblock %}
+
+{% block scriptlinks %}
+<script src="{{ url_for('static', filename='survey_question.js') }}"></script>
+{% endblock %}
