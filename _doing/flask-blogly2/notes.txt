@@ -1,3 +1,7 @@
+### 2021-04-05 10:12 pm
+
+
+
 ### 2021-04-05 06:09 am
 
 Starting Blogly part 2
@@ -31,4 +35,3 @@ Plan - analysis / design time
 Todo:
 - forms, javascript
 - client-side routes to be done
-

@@ -29,9 +29,15 @@ debug = DebugToolbarExtension(app)
 
 from models import db, connect_db, User, Post
 connect_db(app)
-# db.drop_all()
-# db.create_all()
+db.drop_all()
+db.create_all()
 
+# Import the os module
+import os
+# Print the current working directory
+os.chdir("/Users/yu/Workspaces/htdocs/yute/_doing/flask-blogly2")
+cwd = os.getcwd()
+print("Current working directory: {0}".format(cwd))
 
 #
 # User routes
