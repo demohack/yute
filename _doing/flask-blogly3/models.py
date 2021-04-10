@@ -1,6 +1,6 @@
 """Models for Blogly."""
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import func
+from sqlalchemy import func, ForeignKey
 
 db = SQLAlchemy()
 
@@ -35,6 +35,7 @@ class User(db.Model):
     image_url = db.Column(db.Text,
                      nullable=True,
                      unique=False)
+    posts = db.relationship("Post")
 
     def get_full_name(self):
         """Return full name of user."""
@@ -44,4 +45,37 @@ class User(db.Model):
     def full_name(self):
         """Return full name of user."""
         return f"{self.first_name} {self.last_name}"
+
+
+# References
+# https://stackoverflow.com/questions/13370317/sqlalchemy-default-datetime
+# Calculate timestamps within your DB, not your client - Jeff Widman
+# https://docs.sqlalchemy.org/en/14/core/defaults.html
+# https://stackoverflow.com/questions/38878846/how-do-i-call-a-database-function-using-sqlalchemy-in-flask
+
+class Post(db.Model):
+    """Post"""
+
+    __tablename__ = "posts"
+
+    id = db.Column(db.Integer,
+                   primary_key=True,
+                   autoincrement=True)
+    title = db.Column(db.Text,
+                     nullable=True,
+                     unique=False)
+    content = db.Column(db.Text,
+                     nullable=True,
+                     unique=False)
+    created_at = db.Column(db.DateTime,
+                     nullable=False,
+                     server_default=func.now(),
+                     unique=False)
+    user_id = db.Column(db.Integer,
+                     ForeignKey('users.id'),
+                     nullable=True,
+                     unique=False)
+    recipient_id = db.Column(db.Integer,
+                     nullable=True,
+                     unique=False)
 

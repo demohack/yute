@@ -20,7 +20,7 @@
 {% endblock %}
 
 {% block content %}
-<form id="form" action="/users/{{ user.id }}/delete" method="POST">
+<form id="form" action="/users/{{ user.id }}/edit" method="POST">
     <p><label for="first_name" class="col-sm-2 col-form-label">First Name</label>
         <input id="first_name" name="first_name" type="text" class="text" value="{{ user.first_name }}"></p>
     <p><label for="last_name" class="col-sm-2 col-form-label">Last Name</label>
@@ -28,13 +28,12 @@
     <p><label for="image_url" class="col-sm-2 col-form-label">Image Url</label>
         <input id="image_url" name="image_url" type="text" class="text" value="{{ user.image_url }}"></p>
 
-    <input type="hidden" id="edit_mode" name="edit_mode" value="{{ state }}">
-
     <input type="hidden" id="init_user_id" name="init_user_id" value="{{ user.id }}">
     <input type="hidden" id="init_first_name" name="init_first_name" value="{{ user.first_name }}">
     <input type="hidden" id="init_last_name" name="init_last_name" value="{{ user.last_name }}">
     <input type="hidden" id="init_image_url" name="init_image_url" value="{{ user.image_url }}">
 
+    <input type="hidden" id="edit_mode" name="edit_mode" value="{{ state }}">
     <label class="checkbox-inline">
         <input id="toggle-edit-mode" type="checkbox" checked data-toggle="toggle"> <div id="toggle-edit-text">Edit Mode</div>
     </label>
@@ -42,6 +41,22 @@
     <button id="submit" class="btn btn-primary">Submit</button>
     <button id="delete" class="btn btn-danger">Delete</button>
     <button id="cancel" class="btn btn-secondary">Cancel</button>
+</form>
+
+<form id="user-posts" action="/users/{{ user.id }}/posts/new" method="GET">
+    <h2>Posts</h2>
+    {% if user.posts %}
+    <ul class=posts>
+        {% for post in user.posts %}
+        <li>
+        {% if post.deleted %}<del>{% endif %}
+            <a href="/posts/{{ post.id }}">{{ post.id }} : {{ post.title }}</a>
+        {% if post.deleted %}</del>{% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <button id="add-post" class="btn btn-primary">Add Post</button>
 </form>
 
 {% endblock %}

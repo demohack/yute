@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Post Info{% endblock %}
+
+{% block header %}
+<h1>Post Info</h1>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class=flashes>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+{% endblock %}
+
+{% block content %}
+<form action="/users/{{ user_id }}/posts/new" method="POST">
+    <p><label for="title" class="col-sm-2 col-form-label">Title</label>
+        <input id="title" name="title" type="text" class="text" value=""></p>
+    <p><label for="content" class="col-sm-2 col-form-label">Content</label>
+        <input id="content" name="content" type="text" class="text" value=""></p>
+
+    <button id="submit" class="btn btn-primary">Submit</button>
+    <button id="cancel" class="btn btn-secondary">Cancel</button>
+</form>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

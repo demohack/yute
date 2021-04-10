@@ -1,5 +1,62 @@
 daily journal
 
+### 2021-04-09 5:57 am
+
+setting up a new flask project folder:
+
+install virtual environment module
+: python -m venv venv
+
+edit activate, insert these two environment variables
+: vi venv/bin/activate
+: export FLASK_APP=flaskr
+: export FLASK_ENV=development
+
+activate virtual environment
+: . venv/bin/activate
+
+install flask
+: pip install flask
+: pip install flask_debugtoolbar
+: pip install flask-sqlalchemy
+: pip install psycopg2-binary
+
+flask init-db
+flask run
+
+
+https://guide.macports.org/chunked/using.html#using.port.selfupdate
+: port help selfupdate
+
+If the installation of a port fails,
+you should always clean and try again: port clean portname
+: port clean portname
+
+port clean can also be used to remove corrupted downloads
+after a failed fetch phase, by specifying the --dist flag
+: port clean --dist portname
+
+You might also want to try enabling trace mode,
+which can prevent conflicts caused by files installed by other
+ports or in common system locations, such as /usr/local.
+To do that, re-run the installation with the -t flag:
+: port -t install portname
+
+
+https://guide.macports.org/chunked/installing.shell.html
+: export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+
+To verify that the file containing the MacPorts variables is in effect,
+type env in the terminal to verify the current environment settings
+after the file has been created.
+: env
+
+https://www.activestate.com/resources/quick-reads/how-to-update-all-python-packages/
+list outdated in python
+: pip list --outdated
+: pip freeze > requirements.txt
+Edit requirements.txt, and replace all ‘==’ with ‘>=’.
+: pip install -r requirements.txt --upgrade
 
 ### 2021-04-05 10:32 am
 
@@ -168,7 +225,7 @@ https://www.postgresqltutorial.com/postgresql-show-databases/
 # list tables
 https://www.postgresqltutorial.com/postgresql-show-tables/
 
-\dt 
+\dt
 \dt+
 
 
@@ -228,7 +285,7 @@ PGDB_DATABASE=local
 PGDB_USER=user_name
 PGDB_PASSWORD=X
 
-add to top of code file: 
+add to top of code file:
 
 require('dotenv').config()
 

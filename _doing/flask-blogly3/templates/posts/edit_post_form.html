@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Post Info{% endblock %}
+
+{% block csslinks %}
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block header %}
+<h1>Post Info</h1>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class=flashes>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+{% endblock %}
+
+{% block content %}
+<form id="form" action="/posts/{{ post_id }}/edit" method="POST">
+    <p><label for="title" class="col-sm-2 col-form-label">Title</label>
+        <input id="title" name="title" type="text" class="text" value="{{ post.title }}"></p>
+    <p><label for="content" class="col-sm-2 col-form-label">Content</label>
+        <input id="content" name="content" type="text" class="text" value="{{ post.content }}"></p>
+
+    <input type="hidden" id="init_user_id" name="init_user_id" value="{{ post.user_id }}">
+    <input type="hidden" id="init_post_id" name="init_post_id" value="{{ post.id }}">
+    <input type="hidden" id="init_title" name="init_title" value="{{ post.title }}">
+    <input type="hidden" id="init_content" name="init_content" value="{{ post.content }}">
+
+    <input type="hidden" id="edit_mode" name="edit_mode" value="{{ state }}">
+    <label class="checkbox-inline">
+        <input id="toggle-edit-mode" type="checkbox" checked data-toggle="toggle"> <div id="toggle-edit-text">Edit Mode</div>
+    </label>
+
+    <button id="submit" class="btn btn-primary">Submit</button>
+    <button id="delete" class="btn btn-danger">Delete</button>
+    <button id="cancel" class="btn btn-secondary">Cancel</button>
+</form>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block scriptlinks %}
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="{{ url_for('static', filename='edit_post_form.js') }}"></script>
+{% endblock %}
