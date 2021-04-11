@@ -25,12 +25,15 @@ edit activate, insert these two environment variables
 
 activate virtual environment
 : . venv/bin/activate
+: pip install --upgrade pip
 
 install flask
 : pip install flask
 : pip install flask_debugtoolbar
 : pip install flask-sqlalchemy
 : pip install psycopg2-binary
+: pip install python-dotenv
+: pip install flask-wtf
 
 flask init-db
 flask run
