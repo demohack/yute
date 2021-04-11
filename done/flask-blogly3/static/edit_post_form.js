@@ -28,18 +28,21 @@ $( "#content" ).change(function() {
 $('#cancel').on('click', function (e) {
     let user_id = parseInt($('#init_user_id').val());
     $('#form').prop('action', `/users/${user_id}`);
+    $('#form').prop('method', "GET");
     console.log("click : cancel")
 })
 
 $('#delete').on('click', function (e) {
     let post_id = parseInt($('#init_post_id').val());
     $('#form').prop('action', `/posts/${post_id}/delete`);
+    $('#form').prop('method', "POST");
     console.log("click : delete")
 })
 
 $('#submit').on('click', function (e) {
     let post_id = parseInt($('#init_post_id').val());
     $('#form').prop('action', `/posts/${post_id}/edit`);
+    $('#form').prop('method', "POST");
     console.log("click : submit")
 })
 

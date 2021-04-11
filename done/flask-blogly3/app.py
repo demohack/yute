@@ -10,15 +10,13 @@ from flask_debugtoolbar import DebugToolbarExtension
 app.config['SECRET_KEY'] = "SECRET!"
 debug = DebugToolbarExtension(app)
 
-from models import db, connect_db, User, Post
+from models import db, connect_db, User, Post, Tag
 connect_db(app)
-# db.drop_all()
-# db.create_all()
 
 # # Import the os module
 # import os
 # # Print the current working directory
-# os.chdir("/Users/yu/Workspaces/htdocs/yute/_doing/flask-blogly2")
+# os.chdir("/Users/yu/Workspaces/htdocs/yute/_doing/flask-blogly3")
 # cwd = os.getcwd()
 # print("Current working directory: {0}".format(cwd))
 
@@ -40,7 +38,7 @@ def show_user_list():
     # Show all users.
     # Make these links to view the detail page for the user.
     # Have a link here to the add-user form.
-    print(app.config['SQLALCHEMY_DATABASE_URI'])
+
     users = User.query.all()
     return render_template('users/users.html', users=users)
 
@@ -97,7 +95,8 @@ def do_edit_user(user_id):
     # POST /users/[user-id]/edit
     # Process the edit form, returning the user to the /users page.
 
-    user = User.query.filter_by(id=user_id).first()
+    # user = User.query.filter_by(id=user_id).first()
+    user = User.query.get_or_404(user_id)
     user.first_name = request.form['first_name'] if 'first_name' in request.form else ""
     user.last_name = request.form['last_name'] if 'last_name' in request.form else ""
     user.image_url = request.form['image_url'] if 'image_url' in request.form else ""
@@ -176,7 +175,8 @@ def do_edit_post(post_id):
     # POST /posts/[post-id]/edit
     # Handle editing of a post. Redirect back to the post view.
 
-    post = Post.query.filter_by(id=post_id).first()
+    # post = Post.query.filter_by(id=post_id).first()
+    post = Post.query.get_or_404(post_id)
     post.title = request.form['title'] if 'title' in request.form else ""
     post.content = request.form['content'] if 'content' in request.form else ""
 
@@ -195,3 +195,138 @@ def do_delete_post(post_id):
     db.session.commit()
 
     return redirect("/users/{user_id}".format(user_id=post.user_id))
+
+
+
+#
+# Tag routes
+#
+
+
+
+@app.route("/tags")
+def show_tags():
+    # GET /tags
+    # Lists all tags, with links to the tag detail page.
+
+    tags = Tag.query.all()
+    return render_template('tags/tags.html', tags=tags)
+
+
+@app.route("/tags/<int:tag_id>")
+def show_view_tag_form(tag_id):
+    # GET /tags/[tag-id]
+    # Show detail about a tag. Have links to edit form and to delete.
+
+    state = "view"
+
+    tag = Tag.query.get_or_404(tag_id)
+    return render_template('tags/edit_tag_form.html', tag=tag, state=state)
+
+
+@app.route("/tags/new")
+def show_new_tag_form():
+    # GET /tags/new
+    # Shows a form to add a new tag.
+
+    return render_template('tags/new_tag_form.html')
+
+@app.route("/tags/new", methods=["POST"])
+def do_add_new_tag():
+    # POST /tags/new
+    # Process add form, adds tag, and redirect to tag list.
+
+    tag_name = request.form['tag_name'] if 'tag_name' in request.form else None
+
+    new_tag = Tag(name=tag_name)
+
+    db.session.add(new_tag)
+    db.session.commit()
+
+    return redirect("/tags")
+
+
+@app.route("/tags/<int:tag_id>/edit")
+def show_edit_tag_form(tag_id):
+    # GET /tags/[tag-id]/edit
+    # Show edit form for a tag.
+
+    state = "edit"
+
+    tag = Tag.query.get_or_404(tag_id)
+    return render_template('tags/edit_tag_form.html', tag_id=tag_id, state=state)
+
+
+@app.route("/tags/<int:tag_id>/edit", methods=["POST"])
+def do_edit_tag(tag_id):
+    # POST /tags/[tag-id]/edit
+    # Process edit form, edit tag, and redirects to the tags list.
+
+    # tag = Tag.query.filter_by(id=tag_id).first()
+    tag = Tag.query.get_or_404(tag_id)
+    tag.name = request.form['tag_name'] if 'tag_name' in request.form else ""
+    db.session.commit()
+
+    return redirect("/tags")
+
+
+@app.route("/tags/<int:tag_id>/delete", methods=["POST"])
+def do_delete_tag(tag_id):
+    # POST /tags/[tag-id]/delete
+    # Delete a tag.
+
+    tag = Tag.query.get_or_404(tag_id)
+    db.session.delete(tag)
+    db.session.commit()
+
+    return redirect("/tags")
+
+
+@app.route("/posts/<int:post_id>/tags/select")
+def show_select_tags_form(post_id):
+    # GET /posts/[post-id]/tags/select
+    # Show the tags list for a given post, allows selection of tags.
+
+    state = "edit"
+
+    post = Post.query.get_or_404(post_id)
+
+    sql = "select t.id,"
+    sql += " (case when pt.post_id is null then False else True end) as checked"
+    sql += " from post_tags as pt"
+    sql += " right outer join tags as t"
+    sql += " on pt.tag_id = t.id"
+    sql += " where pt.post_id = {post_id}".format(post_id=post_id)
+
+    post_tags = db.engine.execute(sql)
+
+    tags = db.engine.execute("select t.id, False as checked from tags as t")
+
+    return render_template('tags/select_tags_form.html', post=post, tags=tags, post_tags=post_tags, state=state)
+
+
+@app.route("/posts/<int:post_id>/tags/select", methods=["POST"])
+def do_select_tags_form(post_id):
+    # POST /posts/[post-id]/tags/select
+    # Proces the tags list for a given post.
+
+    import pdb; pdb.set_trace()
+    post = Post.query.get_or_404(post_id)
+
+    selected_tags = request.form.getlist('tags[]')
+
+    sql = "delete from post_tags"
+    sql += " where post_id = {post_id}".format(post_id=post_id)
+
+    tags = db.engine.execute(sql)
+
+    for tag_id in selected_tags:
+
+        sql = "insert into post_tags"
+        sql += " (post_id, tag_id)"
+        sql += " values"
+        sql += " ({post_id},{tag_id})".format(post_id=post_id, tag_id=tag_id)
+
+        db.engine.execute(sql)
+
+    return redirect("/posts/{post_id}".format(post_id=post_id))

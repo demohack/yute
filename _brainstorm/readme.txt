@@ -1,5 +1,16 @@
 daily journal
 
+### 2021-04-10 11:56 pm
+
+: pip install flask-shell-ipython
+: flask shell
+
+
+insert this in to app.py source code for break point
+: import pdb; pdb.set_trace()
+
+
+
 ### 2021-04-09 5:57 am
 
 setting up a new flask project folder:

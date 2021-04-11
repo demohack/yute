@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Tag list{% endblock %}
+
+{% block header %}
+<h1>Tag list</h1>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class=flashes>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+{% endblock %}
+
+{% block content %}
+<ul class=flashes>
+    {% for tag in tags %}
+        <li>
+            {% if tag.deleted %}<del>{% endif %}
+            <a href="/tags/{{ tag.id }}">{{ tag.id }} : {{ tag.name }}</a>
+            {% if tag.deleted %}</del>{% endif %}
+        </li>
+    {% endfor %}
+</ul>
+
+<a id="add_new_tag" class="btn btn-success" href="/tags/new">New Tag</a>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

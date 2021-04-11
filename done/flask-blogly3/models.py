@@ -1,6 +1,5 @@
 """Models for Blogly."""
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import func, ForeignKey
 
 db = SQLAlchemy()
 
@@ -9,6 +8,9 @@ def connect_db(app):
 
     db.app = app
     db.init_app(app)
+
+    # db.drop_all()
+    # db.create_all()
 
 class User(db.Model):
     """User"""
@@ -26,7 +28,7 @@ class User(db.Model):
                      unique=False)
     created_at = db.Column(db.DateTime,
                      nullable=False,
-                     server_default=func.now(),
+                     server_default=db.func.now(),
                      unique=False)
     deleted = db.Column(db.Boolean,
                      nullable=False,
@@ -52,6 +54,25 @@ class User(db.Model):
 # Calculate timestamps within your DB, not your client - Jeff Widman
 # https://docs.sqlalchemy.org/en/14/core/defaults.html
 # https://stackoverflow.com/questions/38878846/how-do-i-call-a-database-function-using-sqlalchemy-in-flask
+# https://docs.sqlalchemy.org/en/14/orm/basic_relationships.html
+
+class PostTag(db.Model):
+    """PostTag"""
+
+    __tablename__ = "post_tags"
+    post_id = db.Column(db.Integer,
+                     db.ForeignKey('posts.id'),
+                     primary_key=True)
+    tag_id = db.Column(db.Integer,
+                     db.ForeignKey('tags.id'),
+                     primary_key=True)
+    tag = db.relationship("Tag", back_populates="posts")
+    post = db.relationship("Post", back_populates="tags")
+
+# post_tags = db.Table('post_tags', db.Model.metadata,
+#     db.Column('post_id', db.Integer, db.ForeignKey('posts.id')),
+#     db.Column('tag_id', db.Integer, db.ForeignKey('tags.id'))
+# )
 
 class Post(db.Model):
     """Post"""
@@ -69,13 +90,27 @@ class Post(db.Model):
                      unique=False)
     created_at = db.Column(db.DateTime,
                      nullable=False,
-                     server_default=func.now(),
+                     server_default=db.func.now(),
                      unique=False)
     user_id = db.Column(db.Integer,
-                     ForeignKey('users.id'),
+                     db.ForeignKey('users.id'),
                      nullable=True,
                      unique=False)
     recipient_id = db.Column(db.Integer,
                      nullable=True,
                      unique=False)
+    tags = db.relationship("PostTag", back_populates="post")
 
+
+class Tag(db.Model):
+    """Tag"""
+
+    __tablename__ = "tags"
+
+    id = db.Column(db.Integer,
+                   primary_key=True,
+                   autoincrement=True)
+    name = db.Column(db.Text,
+                     nullable=True,
+                     unique=False)
+    posts = db.relationship("PostTag", back_populates="tag")

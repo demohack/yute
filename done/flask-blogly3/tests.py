@@ -5,7 +5,7 @@ from models import db, User
 
 from dotenv import dotenv_values
 
-settings = dotenv_values("/Users/yu/sb/conf/.env") 
+settings = dotenv_values("/Users/yu/sb/conf/.env")
 
 DB_CONFIG = {
     'driver': settings['PGDRIVER'],

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Tag Info{% endblock %}
+
+{% block header %}
+<h1>Tag Info</h1>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class=flashes>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+{% endblock %}
+
+{% block content %}
+<form action="/tags/new" method="POST">
+    <p><label for="tag_name" class="col-sm-2 col-form-label">Tag</label>
+        <input id="tag_name" name="tag_name" type="text" class="text" value=""></p>
+
+    <button id="submit" class="btn btn-primary">Submit</button>
+    <button id="cancel" class="btn btn-secondary">Cancel</button>
+</form>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
