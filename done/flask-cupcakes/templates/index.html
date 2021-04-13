@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}Cupcakes{% endblock %}
+
+{% block csslinks %}
+<link href="{{ url_for('static', filename='cupcakes.css') }}" rel="stylesheet">
+{% endblock %}
+
+
+{% block header %}
+<h1>Cupcakes</h1>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class=flashes>
+  {% for message in messages %}
+  <li>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+{% endblock %}
+
+{% block content %}
+<ol id="all-articles-list" class="articles-list">
+  <h3>Loading...</h3>
+</ol>
+
+<form action="" class="hidden" id="submit-form">
+  {{ form.hidden_tag() }}
+  <!--add type=hidden form fields -->
+
+  {% for field in form
+           if field.widget.input_type != 'hidden' %}
+
+  <p>
+    {{ field.label }}
+    {{ field }}
+
+    {% for error in field.errors %}
+    {{ error }}
+    {% endfor %}
+  </p>
+
+  {% endfor %}
+
+  <button type="submit">Add Cupcake</button>
+
+  <!-- <form action="" class="hidden" id="edit-article-form">
+    <h4>Edit Submitted Story</h4>
+    <div class="edit-input">
+      <div>
+        <label for="edit-author">author</label>
+        <input id="edit-author" type="text">
+      </div>
+      <div>
+        <label for="edit-title">title</label>
+        <input id="edit-title" type="text">
+      </div>
+      <div>
+        <label for="edit-url">url</label>
+        <input id="edit-url" type="url">
+      </div>
+      <div hidden>
+        <label for="edit-storyid">story id</label>
+        <input id="edit-storyid" type="text">
+      </div>
+      <button type="submit">change</button>
+    </div>
+  </form>
+</form> -->
+
+<!-- <form action="" class="hidden" id="submit-form">
+  <h4>Submit New Story</h4>
+  <div>
+    <label for="author">author</label>
+    <input id="author" required type="text" placeholder="author name">
+  </div>
+  <div>
+    <label for="title">title</label>
+    <input id="title" required type="text" placeholder="article title">
+  </div>
+  <div>
+    <label for="url">url</label>
+    <input id="url" required type="url" placeholder="article url">
+  </div>
+  <button type="submit">submit</button>
+  <hr>
+</form> -->
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block scriptlinks %}
+<script src="https://unpkg.com/axios/dist/axios.js"></script>
+<script src="{{ url_for('static', filename='cupcakes.js') }}"></script>
+{% endblock %}
