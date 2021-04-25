@@ -7,7 +7,6 @@ app = Flask(__name__)
 config_app(app)
 
 from flask_debugtoolbar import DebugToolbarExtension
-app.config['SECRET_KEY'] = "SECRET!"
 debug = DebugToolbarExtension(app)
 
 from models import db, connect_db, Pet

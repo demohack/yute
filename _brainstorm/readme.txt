@@ -1,5 +1,17 @@
 daily journal
 
+### 2021-04-17
+
+https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity
+https://www.srihash.org/
+
+Subresource Integrity (SRI) is a security feature that enables browsers to
+verify that resources they fetch (for example, from a CDN) are delivered without
+unexpected manipulation. It works by allowing you to provide a cryptographic hash
+that a fetched resource must match.
+
+
+
 ### 2021-04-10 11:56 pm
 
 : pip install flask-shell-ipython
@@ -181,7 +193,29 @@ git add .; git commit -m ""; git push
 
 git pull
 
+
+
+
 ### 2021-02-23 6:02 pm
+mac ports install of postgresql
+port install postgresql13-server
+
+postgresql13-server has the following notes:
+To create a database instance, after install do
+    sudo mkdir -p /opt/local/var/db/postgresql13/defaultdb
+    sudo chown postgres:postgres /opt/local/var/db/postgresql13/defaultdb
+    sudo su postgres -c 'cd /opt/local/var/db/postgresql13 && /opt/local/lib/postgresql13/bin/initdb -D /opt/local/var/db/postgresql13/defaultdb'
+
+You can now start the database server using:
+/opt/local/lib/postgresql13/bin/pg_ctl -D /opt/local/var/db/postgresql13/defaultdb -l logfile start
+
+/opt/local/lib/postgresql13/bin/pg_ctl -D /opt/local/var/db/postgresql13/defaultdb -l logfile stop
+
+pg_ctl: cannot be run as root
+Please log in (using, e.g., "su") as the (unprivileged) user that will own the server process.
+
+
+
 https://www.postgresql.org/docs/9.5/app-pg-ctl.html
 
 pg_ctl start
@@ -203,7 +237,7 @@ insert into t_user (name, age, email) values ('user_name', 45, 'user_name@domain
 create table t_user (name text not null, age int, email text);
 
 # change user password
-ALTER USER davide WITH PASSWORD 'hu8jmn3';
+ALTER USER name WITH PASSWORD 'pwd';
 
 # grant user access to database
 grant all on database testdb to user_name;
@@ -248,6 +282,11 @@ psql -U postgres -h localhost -p 5432
 
 # connect to postgres with database specified
 psql -d local -U test -h localhost -p 5432
+
+
+https://stackoverflow.com/questions/38424102/why-isnt-psql-requiring-me-to-enter-a-password-to-access-psql-for-a-login-role
+While you are in psql and connected to the database run SHOW hba_file; to find out where your pg_hba.conf file is located.
+change connections from trust to md5
 
 
 # different ways of connecting to PG
