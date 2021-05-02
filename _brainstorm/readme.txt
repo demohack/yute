@@ -1,5 +1,48 @@
 daily journal
 
+
+### 2021-05-01
+
+test file with nodejs / jest
+> jest sorted-frequency.test.js
+
+
+### 2021-04-25
+consulting companies
+accenture
+capgemeni
+ibm
+staffing companies
+
+
+### 2021-04-25
+
+Documenting for past week. I had momentum in coding, finishing projects left and
+right in flask/postgres. Then hit a problem and got derailed. The postgres db
+connection wasn't giving me error messages, and nothing was updating to the db.
+
+I didn't have a problem earlier from cookie cutter code I crafted, copying and
+pasting project to project. But when I started from scratch on the latest project
+to learn more about each line, I ran into this issue.
+
+I could have raised the issue and asked someone. But I hadn't done my own search,
+kept procrastinating and I finally made the effort.
+
+PGSQL by default installation using macports sets to trust authentication. this
+meant that connections succeeded, despite password errors. I'll have to confirm
+this, but for now I changed pg_hba.conf to require md5 authentication.
+
+Another issue was I wasn't sure which instance of postgres was being used. I had
+multiple instances installed via macports, and regular install. So I removed
+other instances to just the macport version.
+
+Moral of the story, configuration management is important.
+
+
+https://stackoverflow.com/questions/43122175/automatically-hard-wrap-lines-at-column-in-vscode
+
+
+
 ### 2021-04-17
 
 https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity
