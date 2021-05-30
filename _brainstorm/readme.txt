@@ -1,5 +1,33 @@
 daily journal
 
+### 2021-05-23
+
+choosing API:
+- good documentation
+- miniimal limitation, e.g. calls
+
+what additional value are you adding?
+how visible is that from user perspective?
+you need to enter your meal information?
+
+
+
+### 2021-05-22
+51.1% of curriculum
+
+Doing exercise 24.5, hashing and login.
+
+Other concepts: authentication, encryption
+
+### 2021-05-12
+
+I made it to 47.1% of curriculum with last update, trying to get to goal of
+50% this weekend.
+
+Finished all the data structures and algorithms assignments. Now circling
+back to flask, python, postgresql. Hopefully won't run into configuration
+issues.
+
 
 ### 2021-05-01
 
