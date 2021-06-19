@@ -1,5 +1,27 @@
 daily journal
 
+### 2021-06-14
+
+Feels like I'm starting over again with postgresql and flask. but I was able to rely on notes and experience / fuzzy memory. 1.5 hrs from updating macports, starting flask, connecting to pgsql.
+
+2 hrs total with table schema so far.
+
+Documenting my terminal tabs:
+1- flask commandline
+2- whatever
+3- su postgres
+4- su postgres
+
+
+### 2021-06-06
+
+24.9 preparing for capstone project 1
+https://ddf46429.springboard.com/uploads/resources/1581813551_SEC_Capstone_Overview.pdf
+
+43.1 preparing for capstone project 2
+https://ddf46429.springboard.com/uploads/resources/1617998287_SEC_Final_Capstone__Overview_2_.pdf
+
+
 ### 2021-05-23
 
 choosing API:
