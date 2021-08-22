@@ -1,5 +1,17 @@
 daily journal
 
+
+### 2021-06-19 Warbler, home.html, line 58
+
+{{'btn-primary' if msg.id in likes else 'btn-secondary'}}
+
+
+### 2021-06-19
+
+ipython
+% load filename.py
+
+
 ### 2021-06-14
 
 Feels like I'm starting over again with postgresql and flask. but I was able to rely on notes and experience / fuzzy memory. 1.5 hrs from updating macports, starting flask, connecting to pgsql.
@@ -127,6 +139,7 @@ edit activate, insert these two environment variables
 : vi venv/bin/activate
 : export FLASK_APP=flaskr
 : export FLASK_ENV=development
+: export FLASK_RUN_PORT=5002
 
 activate virtual environment
 : . venv/bin/activate
@@ -139,6 +152,7 @@ install flask
 : pip install psycopg2-binary
 : pip install python-dotenv
 : pip install flask-wtf
+: pip install email_validator
 
 flask init-db
 flask run
