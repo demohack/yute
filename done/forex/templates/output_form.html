@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}FOREX OUTPUT{% endblock %}
+
+{% block csslinks %}
+{% endblock %}
+
+{% block header %}
+<h1>FOREX OUTPUT</h1>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class=flashes>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+{% endblock %}
+
+{% block content %}
+<form method="POST" action="/">
+
+  {{ form.hidden_tag() }}
+
+  {% for field in form
+         if field.widget.input_type != 'hidden' %}
+  <p>
+    {{ field.label }}
+    {{ field }}
+
+    {% for error in field.errors %}
+    {{ error }}
+    {% endfor %}
+  </p>
+  {% endfor %}
+
+  <button type="submit">Restart</button>
+
+</form>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block scriptlinks %}
+{% endblock %}
