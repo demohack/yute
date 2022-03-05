@@ -34,7 +34,7 @@ Answer the following questions below:
 
 - What is an integration test?
 
->An integraion test tests the interactions of functions across 2 or more compoents.
+>An integraion test tests the interactions of functions across 2 or more components.
 
 
 - What is the role of web application framework, like Flask?

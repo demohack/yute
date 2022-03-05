@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, FloatField
-from wtforms.validators import InputRequired
+from wtforms import FloatField, SelectField
+from wtforms.validators import InputRequired, NumberRange
 
 class InputForm(FlaskForm):
-    convert_from = StringField("Converting from", validators=[InputRequired()])
-    convert_to = StringField("Converting to", validators=[InputRequired()])
-    amount = FloatField("Amount", validators=[InputRequired()])
+    from_currency_code = SelectField("Converting from", validators=[InputRequired()])
+    to_currency_code = SelectField("Converting to", validators=[InputRequired()])
+    from_amount = FloatField("From amount", validators=[InputRequired()])

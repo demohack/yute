@@ -6,16 +6,10 @@
 {% endblock %}
 
 {% block header %}
-<h1>FOREX INPUT</h1>
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-<ul class=flashes>
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
-{% endwith %}
+<div class="jumbotron text-center">
+  <h1>FOREX INPUT</h1>
+  <p>convert from one currency to another</p> 
+</div>
 {% endblock %}
 
 {% block content %}
@@ -35,12 +29,21 @@
   </p>
   {% endfor %}
 
-  <button type="submit">Submit</button>
+  <button type="submit" class="btn btn-default">Submit</button>
 
 </form>
 {% endblock %}
 
 {% block footer %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class=flashes>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
 {% endblock %}
 
 {% block scriptlinks %}
