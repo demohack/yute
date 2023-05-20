@@ -67,45 +67,14 @@ class User(db.Model):
 
     __tablename__ = 'users'
 
-    id = db.Column(
-        db.Integer,
-        primary_key=True,
-    )
-
-    email = db.Column(
-        db.Text,
-        nullable=False,
-        unique=True,
-    )
-
-    username = db.Column(
-        db.Text,
-        nullable=False,
-        unique=True,
-    )
-
-    image_url = db.Column(
-        db.Text,
-        default="/static/images/default-pic.png",
-    )
-
-    header_image_url = db.Column(
-        db.Text,
-        default="/static/images/warbler-hero.jpg"
-    )
-
-    bio = db.Column(
-        db.Text,
-    )
-
-    location = db.Column(
-        db.Text,
-    )
-
-    password = db.Column(
-        db.Text,
-        nullable=False,
-    )
+    id = db.Column( db.Integer, primary_key=True )
+    username = db.Column( db.Text, nullable=False, unique=True )
+    password = db.Column( db.Text, nullable=False )
+    email = db.Column( db.Text, nullable=False, unique=True )
+    image_url = db.Column( db.Text, default="/static/images/default-pic.png" )
+    header_image_url = db.Column( db.Text, default="/static/images/warbler-hero.jpg" )
+    bio = db.Column( db.Text )
+    location = db.Column( db.Text )
 
     messages = db.relationship('Message')
 

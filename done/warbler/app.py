@@ -1,10 +1,10 @@
 import os
 
-from flask import Flask, render_template, request, flash, redirect, session, g, abort
+from flask import Flask, abort, flash, g, render_template, request, redirect, session
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
-from forms import UserAddForm, LoginForm, MessageForm, UserEditForm
+from forms import RegisterUser, LoginUser, MessageForm, EditUser, ProvideFeedback, DeleteFeedback, EditFeedback
 from models import db, connect_db, User, Message
 
 from config import get_config_ipdb_break
@@ -61,11 +61,11 @@ def signup():
     """
     # if get_config_ipdb_break(): ipdb.set_trace()
 
-    form = UserAddForm()
+    form = RegisterUser()
 
     if form.validate_on_submit():
         try:
-            user = User.signup(
+            new_user = User.signup(
                 username=form.username.data,
                 password=form.password.data,
                 email=form.email.data,
@@ -77,7 +77,7 @@ def signup():
             flash("Username already taken", 'danger')
             return render_template('users/signup.html', form=form)
 
-        do_login(user)
+        do_login(new_user)
 
         return redirect("/")
 
@@ -89,7 +89,7 @@ def signup():
 def login():
     """Handle user login."""
 
-    form = LoginForm()
+    form = LoginUser()
 
     # if get_config_ipdb_break(): ipdb.set_trace()
     if form.validate_on_submit():
@@ -239,7 +239,7 @@ def profile():
         return redirect("/")
 
     user = g.user
-    form = UserEditForm(obj=user)
+    form = EditUser(obj=user)
 
     # IMPLEMENT THIS
     if form.validate_on_submit():

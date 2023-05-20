@@ -1,6 +1,6 @@
 """ Flask app for learning authentication """
 
-from flask import Flask, request, redirect, render_template, flash, jsonify, session
+from flask import Flask, flash, jsonify, redirect, render_template, request, session
 from config import settings, DB_CONFIG, config_app
 
 app = Flask(__name__)

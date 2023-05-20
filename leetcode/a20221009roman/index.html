@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+<script>
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var romanToInt = function(s) {
+    const KEYS = "IVXLCDM";
+    
+    const VALS = { I: 1, 
+                   V: 5, 
+                   X: 10, 
+                   L: 50, 
+                   C: 100, 
+                   D: 500, 
+                   M: 1000};
+    
+    const SUBS = { IV: -2, 
+                   IX: -2,
+                   XL: -20,
+                   XC: -20,
+                   CD: -200,
+                   CM: -200 };
+
+    const REPS = "IXCM";    // repetitions (each up to three in a row)
+    
+    const sa = [...s];      // split string to array; alt: s.split(''); 
+    console.log(`sa: ${sa.toString()}`);
+
+    console.log(`map vals: ${sa.toString()}`);
+    const s0 = sa.map((x, i, a) => {
+        console.log(`x: ${x} | i: ${i} | a[i]: ${a[i]}`);
+        return VALS[x];
+    })
+
+    console.log(`map subs: ${sa.toString()}`);
+    const s1 = sa.map((x, i, a) => {
+        console.log(`x: ${x} | i: ${i} | a[i]: ${a[i]}`);
+        if (i > 0) {
+            return SUBS[a[i-1].concat(a[i])];
+        }
+
+        return 0;
+    })
+
+    console.log(`map reps: ${sa.toString()}`);
+    const s2 = sa.map((x, i, a) => {
+        console.log(`x: ${x} | i: ${i} | a[i]: ${a[i]}`);
+        const retval = REPS.includes(x) ? 1 : 0;
+        return retval;
+    })
+    console.log("sa: " + sa.toString());
+    console.log("s2: " + s2.toString());
+
+    console.log(`map last3: ${sa.toString()}`);
+    const s3 = sa.map((x, i, a) => {
+        console.log(`x: ${x} | i: ${i} | a[i]: ${a[i]}`);
+        if (i >= 2) {
+            const r0 = REPS[i-2];
+            const r1 = REPS[i-1];
+            const r2 = REPS[i];
+            
+        }
+
+        return 1; //retval == 1 ? 1 : 0;
+    })
+    
+    console.log(`forEach: ${sa.toString()}`);
+    sa.forEach((x, i, a) => {
+        console.log(`x: ${x} | i: ${i} | a[i]: ${a[i]}`);
+    })
+
+    console.log(`reduce: ${sa.toString()}`);
+    sa.reduce((x0, x1, i, a) => {
+        // reduce isn't useful in this case, x0 is undefined after first iteration
+        console.log(`x0: ${x0} | x1: ${x1} | i: ${i} | a[i]: ${a[i]}`);
+        return x0
+    })
+};
+console.log(romanToInt("I"));
+console.log(romanToInt("LVI"));
+//console.log(romanToInt("MCMXCIV"));
+</script>
+</body>
+</html>
