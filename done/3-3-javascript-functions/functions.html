@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="" ie="edge">
+        <title>timer experiment</title>
+        <link rel="shortcut icon" href="">
+    </head>
+    <body>
+        <pre>
+            First Class Functions
+            - functions are treated as other data types
+            - can assign functions to variables
+        </pre>
+
+        <script type="text/javascript">
+            let sayHi = function() {
+                console.log("hello");
+            }
+
+            sayHi();
+
+        </script>
+
+        <pre>
+            Higher Order Functions
+            - can return functions from functions
+            - can pass in function as parameter to a function
+        </pre>
+
+        <script type="text/javascript">
+            function functionInputFunction(inputFunction) {
+                return inputFunction;
+            }
+            let sayHi2 = function() {
+                console.log("hello 2");
+            }
+
+            let f2 = functionInputFunction(sayHi2);
+
+            f2();
+        </script>
+
+        <pre>
+            Callback functions
+            a callback is a first class function that gets passed as a parameter to a higher order function, and the HOF will invoke the callback at some point.
+        </pre>
+
+        <script type="text/javascript">
+            function sayHi3() {
+                console.log("hello 3");
+            }
+
+            function higherOrder(callback) {
+                console.log("pre callback");
+                callback();
+                console.log("post callback");
+            }
+
+            higherOrder(sayHi3);
+        </script>
+    </body>
+</html>

@@ -116,6 +116,7 @@ document.addEventListener("focusin", function (e) {
     keyPressInterval = 0;
 
     shiftFlag = false;
+    fieldShift.value = false;
     shiftInterval = 0;
 });
 
@@ -126,6 +127,7 @@ document.addEventListener("focusout", function (e) {
     keyPressInterval = 0;
 
     shiftFlag = false;
+    fieldShift.value = false;
     shiftInterval = 0;
 });
 
@@ -143,6 +145,7 @@ document.addEventListener("keydown", function (e) {
 
         if (!shift) {
             shift = true;
+            fieldShift.value = true;
         };
     };
 
@@ -158,6 +161,8 @@ document.addEventListener("keydown", function (e) {
 document.addEventListener("keyup", function (e) {
     valZ = isNaN(fieldZ.value) ? 0 : parseInt(fieldZ.value);
 
+    fieldShift.value = false;
+    shift = false;
     // shiftFlag = false;
     // shiftUpDate = Date.now();
     // shiftInterval = shiftUpDate - shiftDownDate;

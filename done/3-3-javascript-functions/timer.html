@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="" ie="edge">
+        <title>timer experiment</title>
+        <link rel="shortcut icon" href="">
+    </head>
+    <body>
+        Write a function called countdown that accepts a number as a parameter and every 1000 milliseconds decrements the value and console.logs it. Once the value is 0 it should log “DONE!” and stop.
+
+        <pre>
+            countDown(4);
+            // 3
+            // 2
+            // 1
+            // "DONE!"
+        </pre>
+
+        <script type="text/javascript">
+            let delay = 1000; //milliseconds
+            let stopCount = 1;
+
+            // too complex and works incorrectly
+            function countDown1(start) {
+                let count = start;
+                let timeNow = (new Date(Date.now())).toTimeString();
+                const functionName = "countDown1";
+
+                console.log(functionName, timeNow, count);
+
+                if (count <= stopCount) {
+                    console.log(functionName, timeNow, "DONE!");
+                    return;
+                }
+
+                setTimeout(function() {
+                    countDown1(count-1);
+                }, delay);
+            }
+
+            function countDown2(start) {
+                let timeNow = (new Date(Date.now())).toTimeString();
+                const functionName = "countDown2";
+
+                if (start >= stopCount) {
+                    console.log(functionName, timeNow, start);
+                    setTimeout(function() {
+                        countDown2(start - 1);
+                    }, delay);
+                } else {
+                    console.log(functionName, timeNow, "DONE!");
+                }
+            }
+
+            countDown1(5);
+            countDown2(5);
+        </script>
+
+    </body>
+</html>
