@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, flash, jsonify
-import json, datetime, time
+import json
+import datetime
+import time
 from markupsafe import escape
 from boggle import Boggle
 
@@ -16,13 +18,15 @@ boggle_game = Boggle()
 # routes
 #
 
+
 @app.route('/')
 def do_boggle_start():
     game_state = get_game_state(restart=True)
-    
+
     set_game_state(game_state)
 
     return render_template("boggle_start.html", game_state=game_state)
+
 
 @app.route("/lookup")
 def do_lookup():
@@ -62,10 +66,12 @@ def do_score():
 # helper functions
 #
 
+
 def get_game_state(restart=False):
     # load game_state {} from string stored in session, and create an empty {} if necessary
     boggle_json = session.get(BOGGLE_KEY, json.dumps({}))
-    print(datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + " load game state: " + boggle_json)
+    print(datetime.datetime.now().strftime(
+        "%m/%d/%Y, %H:%M:%S") + " load game state: " + boggle_json)
 
     game_state = json.loads(boggle_json)
 
@@ -78,7 +84,9 @@ def get_game_state(restart=False):
 
     return game_state
 
+
 def set_game_state(game_state):
     # dump game_state to json string
-    session[BOGGLE_KEY] = json.dumps(game_state)   
-    print(datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + " save game state: " + session[BOGGLE_KEY])
+    session[BOGGLE_KEY] = json.dumps(game_state)
+    print(datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S") +
+          " save game state: " + session[BOGGLE_KEY])
