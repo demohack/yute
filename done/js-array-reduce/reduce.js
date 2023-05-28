@@ -20,6 +20,7 @@ function extractValue(arr, key) {
         }
         return accumulator;
     }
+
     const iv = []; // initial value, could be scalar or other data structure
 
     let a = arr.reduce(cf, iv);
@@ -37,6 +38,7 @@ This function should be case insensitive so a lowercase letter and uppercase let
 
 function vowelCount(str) {
     let re = /[aeiou]/;
+
     let cf = function (accumulator, currentValue) {
         if (re.test(currentValue)) {
             let v = accumulator[currentValue];
@@ -46,10 +48,10 @@ function vowelCount(str) {
     }
     const iv = {};
 
-    let a = str.toLowerCase().split('');
-    let r = a.reduce(cf, iv);
+    let s1 = str.toLowerCase().split('');
+    let a = s1.reduce(cf, iv);
 
-    return r;
+    return a;
 }
 
 // vowelCount('Elie'); // {e:2,i:1};
