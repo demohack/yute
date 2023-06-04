@@ -5,7 +5,7 @@ const API_ENDPOINT = "/lookup";
 //
 
 $(document).ready(function () {
-    startTimer(seconds = 5, () => {
+    startTimer(seconds = 60, () => {
         updateEndGame();
     });
 
