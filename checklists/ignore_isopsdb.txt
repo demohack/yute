@@ -1,7 +1,0 @@
-venv
-instance
-__pycache__
-.coverage
-readme.txt
-setup.cfg
-setup.py
